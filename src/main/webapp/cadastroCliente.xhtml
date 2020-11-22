@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Cadastre-se</title>
+</h:head>
+
+<h:body>
+	<h:form id="formCliente">
+		<h:messages id="msg"/>
+		<h:panelGrid columns="2">
+			<f:facet name="header">Cadastro de Clientes</f:facet>
+			
+			<h:outputLabel value="Nome:" />
+			<h:inputText id="nome" value="#{clienteBean.cliente.nome}" required="true"/>
+			
+			<h:outputLabel value="CPF:"/>
+			<h:inputText id="cpf" value="#{clienteBean.cliente.cpf}" required="true"/>
+			
+			<h:outputLabel value="Data de Nascimento:"/>
+			<h:inputText id="data_nasc" value="#{clienteBean.cliente.dataNascimento}" required="true"/>
+			
+			<h:outputLabel value="Cidade:"/>
+			<h:inputText id="endereco_cidade" value="#{clienteBean.cliente.endereco.cidade}" required="true"/>
+			
+			<h:outputLabel value="Estado:"/>
+			<h:inputText id="endereco_estado" value="#{clienteBean.cliente.endereco.estado}" required="true"/>
+			
+			<h:outputLabel value="E-mail:"/>
+			<h:inputText id="email" value="#{clienteBean.cliente.email}" required="true"/>
+			
+			<h:outputLabel value="Senha:"/>
+			<h:inputText id="senha" value="#{clienteBean.cliente.senha}" required="true"/>
+			
+			<f:facet name="footer">
+				<h:commandButton action="#{clienteBean.cadastrar}" value="Cadastrar" />
+			</f:facet>
+		</h:panelGrid>
+		
+	</h:form>
+
+</h:body>
+</html>
