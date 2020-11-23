@@ -12,7 +12,6 @@ import javax.persistence.OneToMany;
 @DiscriminatorValue("Cliente")
 public class Cliente extends Usuario {
 
-	@Column(nullable = false)
 	private String cpf;
 	
 	@Embedded

@@ -28,6 +28,7 @@ public class Usuario {
 	private String senha;
 	@Temporal(value = TemporalType.DATE)
 	private Date dataNascimento;
+	@Column(columnDefinition = "boolean default false")
 	private boolean administrador;
 	
 	public Integer getId() {

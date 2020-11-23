@@ -1,20 +1,18 @@
 package br.edu.ifpb.cinebooking.beans;
 
-import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import br.edu.ifpb.cinebooking.modelo.Cliente;
-import br.edu.ifpb.cinebooking.servico.ServicoCliente;
+import br.edu.ifpb.cinebooking.servico.ClienteServico;
 
 @Named
 @RequestScoped
-public class ClienteBean implements Serializable {
+public class ClienteBean {
 	
-	private static final long serialVersionUID = 6101032576115231144L;
 	private Cliente cliente = new Cliente();
 	@EJB
-	private ServicoCliente servico;
+	private ClienteServico servico;
 	
 	public Cliente getCliente() {
 		return cliente;
@@ -24,11 +22,17 @@ public class ClienteBean implements Serializable {
 		this.cliente = cliente;
 	}
 	
-	public void cadastrar() {
+	public boolean cadastrar() {
 		System.out.println("[INFO] Salvando Cliente: " + cliente.getNome());
 		
-		servico.cadastrar(cliente);
-		cliente = new Cliente();
+		try {
+			servico.cadastrar(cliente);
+			
+			cliente = new Cliente();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }

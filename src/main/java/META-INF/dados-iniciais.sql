@@ -1,0 +1,2 @@
+insert into Usuario(tipo, dataNascimento, email, nome, senha, cpf, cidade, estado) values ("Cliente", 06/05/1996, "jeffinho@gmail.com", "Jeffinho", "jeff001", "111.111.111-11", "Sertânia", "PE");
+insert into Usuario(tipo, dataNascimento, email, nome, senha, administrador) values ("Funcionario", 26/03/2001, "peag.carvalho@gmail.com", "Pedro", "pedro001", true);
