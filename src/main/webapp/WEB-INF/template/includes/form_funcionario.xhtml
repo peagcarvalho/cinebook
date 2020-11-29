@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:f="http://xmlns.jcp.org/jsf/core" 
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+	
+	<h:messages id="msg"/>
+	<h:panelGrid columns="3">
+		<h:outputLabel value="Nome:" />
+		<h:inputText id="nome" value="#{usuarioBean.usuario.nome}" required="true"/>
+		<h:message for="nome"/>
+		
+		<h:outputLabel value="Data de Nascimento:"/>
+		<h:inputText id="data_nasc" value="#{usuarioBean.usuario.dataNascimento}" required="true">
+			<f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Brasilia"/>
+		</h:inputText>
+		<h:message for="data_nasc"/>
+		
+		<h:outputLabel value="E-mail:"/>
+		<h:inputText id="email" value="#{usuarioBean.usuario.email}" required="true">
+		</h:inputText>
+		<h:message for="email"/>
+		
+		<h:outputLabel value="Senha:"/>
+		<h:inputSecret id="senha" value="#{usuarioBean.usuario.senha}" required="true">
+			<f:validateLength minimum="6" maximum="20"/>
+		</h:inputSecret>
+		<h:message for="senha"/>
+		
+	</h:panelGrid>
+	
+	<fieldset>
+		<legend>Papel do Funcionário</legend>
+		
+		<h:outputLabel value="Papel:" />
+		<h:selectOneMenu id="papelMenu" value="#{usuarioBean.papel}">
+			<f:selectItem itemValue="ADMINISTRADOR"/>
+			<f:selectItem itemValue="OPERADOR"/>
+			<f:selectItem itemValue="GERENTE"/>
+		</h:selectOneMenu>
+	
+	</fieldset>
+		
+</ui:composition>

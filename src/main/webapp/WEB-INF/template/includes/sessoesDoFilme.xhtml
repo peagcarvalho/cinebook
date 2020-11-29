@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:f="http://xmlns.jcp.org/jsf/core" 
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:jsf="http://xmlns.jcp.org/jsf"
+				xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<h3>Sessões:</h3>
+
+	<h:dataTable id="sessoes" value="#{filmeBean.sessoes}" var="sessao">
+		<h:column>
+		<f:facet name="header">Cinema:</f:facet>
+					#{sessao.cinema.nome}
+    	</h:column>
+    	<br/>
+    	<h:column>
+			<f:facet name="header">Endereço:</f:facet>
+					#{sessao.cinema.enderecoConcatenado}
+    	</h:column>
+    	<br/>
+    	<h:column>
+			<f:facet name="header">Data:</f:facet>
+			 		#{sessao.dataExibicao}
+    	</h:column>
+    	<h:column>
+			<f:facet name="header">Hora:</f:facet>
+			 		#{sessao.horaExibicao}
+    	</h:column>
+    	<br/>
+    	<h:column>
+			<f:facet name="header">Sala:</f:facet>
+			 		#{sessao.sala}
+    	</h:column>
+    	<br/>
+    	<h:column>
+			<h:link value="Comprar" outcome="reservarIngresso">
+				<f:param name="id" value="#{sessao.id}"></f:param>		
+			</h:link>
+    	</h:column>
+	</h:dataTable>
+
+</ui:composition>

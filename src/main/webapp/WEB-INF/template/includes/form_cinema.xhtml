@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:f="http://xmlns.jcp.org/jsf/core" 
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+	
+	<h:messages id="msg"/>
+	<h:panelGrid columns="3">
+		<h:outputLabel value="Nome:" />
+		<h:inputText id="nome" value="#{cinemaBean.cinema.nome}" required="true"/>
+		<h:message for="nome"/>
+		
+		<h:outputLabel value="Telefone:"/>
+		<h:inputText id="telefone" value="#{cinemaBean.cinema.telefoneContato}" required="true"/>
+		<h:message for="telefone"/>
+		<br/>
+		
+		<h:outputText value="Endereço:"/>
+		
+		<br/>
+		<h:outputLabel value="Logradouro:"/>
+		<h:inputText id="logradouro" value="#{cinemaBean.cinema.endereco.logradouro}" required="true">
+		</h:inputText>
+		<h:message for="logradouro"/>
+		
+		<h:outputLabel value="Número:"/>
+		<h:inputText id="numero" value="#{cinemaBean.cinema.endereco.numero}" required="true">
+		</h:inputText>
+		<h:message for="numero"/>
+		
+		<h:outputLabel value="Bairro:"/>
+		<h:inputText id="bairro" value="#{cinemaBean.cinema.endereco.bairro}" required="true">
+		</h:inputText>
+		<h:message for="bairro"/>
+		
+		<h:outputLabel value="Cidade:"/>
+		<h:inputText id="cidade" value="#{cinemaBean.cinema.endereco.cidade}" required="true">
+		</h:inputText>
+		<h:message for="cidade"/>
+		
+		<h:outputLabel value="Estado:"/>
+		<h:inputText id="estado" value="#{cinemaBean.cinema.endereco.estado}" required="true">
+		</h:inputText>
+		<h:message for="estado"/>
+		
+	</h:panelGrid>
+		
+</ui:composition>

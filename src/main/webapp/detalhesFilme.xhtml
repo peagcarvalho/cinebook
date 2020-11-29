@@ -1,0 +1,46 @@
+<ui:composition template="WEB-INF/template/template.xhtml" 
+				xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:f="http://xmlns.jcp.org/jsf/core" 
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<ui:param name="title" value="Cinebook" />
+
+<ui:define name="titulo">DETALHES DO FILME</ui:define>
+
+<ui:define name="conteudo">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{filmeBean.filme}" required="true"
+			requiredMessage="Não foi especificado o id do filme">
+		</f:viewParam>
+		<f:viewAction action="#{filmeBean.carregarSessoesFilme}" />
+		<f:viewAction action="#{filmeBean.concatenarGeneros}" />
+	</f:metadata>
+	
+	<h:graphicImage value="#{filmeBean.filme.capa}" width="230" height="310"/>]
+
+	<h2>#{filmeBean.filme.titulo}</h2>
+	
+	<h:outputLabel style="font-weight: bold" value="Gêneros: "/>
+	<h:outputLabel value="#{filmeBean.genero}" />
+	<br/>
+	
+	<h:outputLabel style="font-weight: bold" value="Ano: "/>
+	<h:outputLabel value="#{filmeBean.filme.anoLancamento}">
+		<f:convertDateTime pattern="yyyy" locale="pt-BR" timeZone="America/Brasilia"/>
+	</h:outputLabel>
+	<br/>
+	
+	<h:outputLabel style="font-weight: bold" value="Classificação: "/>
+	<h:outputLabel value="#{filmeBean.filme.classificacao}" />
+	<br/>
+	
+	<h:outputLabel style="font-weight: bold" value="Sinopse: "/>
+	<h:outputLabel value="#{filmeBean.filme.sinopse}" />
+	
+	<ui:include src="/WEB-INF/template/includes/sessoesDoFilme.xhtml"/>
+
+</ui:define>
+</ui:composition>

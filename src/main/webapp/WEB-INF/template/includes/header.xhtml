@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+	
+	<h:link outcome="paginaInicial">
+		<h:graphicImage name="img/logo-cinebook.png" width="200" height="80" alt="cinebook"/>
+	</h:link>
+	<h:panelGrid columns="3">
+			<c:if test="#{not empty request.userPrincipal}">
+				
+				<h:graphicImage name="/img/user-icon.png" width="30" height="30" alt="user_icon"/>
+				<h:outputText value="Olá, #{loginBean.usuarioLogado.nome}!" />
+			</c:if>
+			<!--  <c:if test="#{not empty request.userPrincipal}">
+				<h:outputText value="#{loginBean.usuarioLogado.email}" />
+			</c:if>-->
+			<c:if test="#{not empty request.userPrincipal}">
+				<h:form>
+					<h:commandButton action="#{loginBean.logout}" value="Logout" />
+				</h:form>
+			</c:if>
+	</h:panelGrid>
+			<nav>
+				<ul>
+					<c:if test="#{empty request.userPrincipal}">
+						<li><h:link outcome="/login.xhtml" value="Entrar" /></li>
+						<li><h:link outcome="/criarConta.xhtml" value="Cadastre-se" /></li>
+					</c:if>
+					<c:if test="#{not empty request.userPrincipal}">
+						<li><h:link outcome="/admin/home_admin.xhtml" value="Administração" /></li>
+					</c:if>
+				</ul>
+			</nav>
+
+	
+	<h1><ui:insert name="titulo">Titulo</ui:insert></h1>	
+
+</ui:composition>

@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:f="http://xmlns.jcp.org/jsf/core" 
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+	<h:messages id="msg"/>
+	<h:panelGrid columns="3">
+		<h:outputLabel value="Título:" />
+		<h:inputText id="titulo" value="#{filmeBean.filme.titulo}" required="true"/>
+		<h:message for="titulo"/>
+		
+		<h:outputLabel value="Link da Capa:"/>
+		<h:inputText id="link_capa" value="#{filmeBean.filme.capa}" required="true"/>
+		<h:message for="link_capa"/>
+		
+		<h:outputLabel value="Sinopse:"/>
+		<h:inputTextarea id="sinopse" value="#{filmeBean.filme.sinopse}" required="true"/>
+		<h:message for="sinopse"/>
+		
+		<h:outputLabel value="Ano:"/>
+		<h:inputText id="ano_lanc" value="#{filmeBean.filme.anoLancamento}" required="true">
+			<f:convertDateTime pattern="yyyy" locale="pt-BR" timeZone="America/Brasilia"/>
+		</h:inputText>
+		<h:message for="ano_lanc"/>
+		
+	</h:panelGrid>
+	
+	<fieldset>
+		<legend>Classificação Indicativa</legend>
+		
+		<h:outputLabel value="Classificação:" />
+		<h:selectOneMenu value="#{filmeBean.filme.classificacao}" id="classMenu">
+			<f:selectItem itemValue="Livre"/>
+			<f:selectItem itemValue="10"/>
+			<f:selectItem itemValue="12"/>
+			<f:selectItem itemValue="14"/>
+			<f:selectItem itemValue="16"/>
+			<f:selectItem itemValue="18"/>
+		</h:selectOneMenu>
+	
+	</fieldset>
+	
+	<fieldset>
+		<legend>Gêneros</legend>
+		
+		<h:outputLabel value="Gênero:" />
+		<h:inputText id="generoMenu" value="#{filmeBean.genero}"/>
+		
+		<h:commandButton action="#{filmeBean.adicionarGenero}" value="Adicionar">
+			<f:ajax execute="generoMenu" render="generosFilmeHTML generoMenu msg"/>
+		</h:commandButton>
+		<br/>
+		<ol jsf:id="generosFilmeHTML">
+			<ui:repeat var="genero" value="#{filmeBean.generos}">
+				<li>#{genero}</li>
+			</ui:repeat>
+		</ol>
+	
+	</fieldset>
+
+</ui:composition>
