@@ -9,31 +9,30 @@
 
 	<h:dataTable id="sessoes" value="#{filmeBean.sessoes}" var="sessao">
 		<h:column>
-		<f:facet name="header">Cinema:</f:facet>
-					#{sessao.cinema.nome}
-    	</h:column>
-    	<br/>
-    	<h:column>
-			<f:facet name="header">Endereço:</f:facet>
-					#{sessao.cinema.enderecoConcatenado}
-    	</h:column>
-    	<br/>
-    	<h:column>
-			<f:facet name="header">Data:</f:facet>
-			 		#{sessao.dataExibicao}
-    	</h:column>
-    	<h:column>
-			<f:facet name="header">Hora:</f:facet>
-			 		#{sessao.horaExibicao}
-    	</h:column>
-    	<br/>
-    	<h:column>
-			<f:facet name="header">Sala:</f:facet>
-			 		#{sessao.sala}
-    	</h:column>
-    	<br/>
-    	<h:column>
-			<h:link value="Comprar" outcome="reservarIngresso">
+			<h:outputLabel style="font-weight:bold; font-size:16px" value="#{sessao.cinema.nome}"/>
+			<br/>
+			
+			<h:outputLabel value="#{sessao.cinema.enderecoConcatenado}"/>
+			<br/>
+			
+			<h:outputLabel value="Sala: #{sessao.sala}"/>
+			<br/>
+			
+			<h:outputLabel value="Data de Exibição: " />
+			<h:outputLabel value="#{sessao.dataExibicao}" >
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Brasilia"/>
+			</h:outputLabel>
+			<br/>
+			
+			<h:outputLabel value="Hora de Exibição: " />
+			<h:outputLabel value="#{sessao.horaExibicao}" >
+				<f:convertDateTime type="time" pattern="HH:mm" locale="pt-BR" timeZone="America/Brasilia"/>
+			</h:outputLabel>
+			<br/>
+			
+		</h:column>
+		<h:column>
+			<h:link value="Comprar" outcome="cliente/reservarIngressos">
 				<f:param name="id" value="#{sessao.id}"></f:param>		
 			</h:link>
     	</h:column>

@@ -11,62 +11,62 @@
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
   <security-constraint>
-  	<web-resource-collection>
-  		<web-resource-name>Administracao</web-resource-name>
-  		<url-pattern>/admin/*</url-pattern>
-  		<http-method>GET</http-method>
-  		<http-method>POST</http-method>
-  	</web-resource-collection>
-  	<auth-constraint>
-  		<role-name>ADMINISTRADOR</role-name>
-  	</auth-constraint>
-      <user-data-constraint>
-        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    <web-resource-collection>
+      <web-resource-name>Administracao</web-resource-name>
+      <url-pattern>/admin/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>ADMINISTRADOR</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
     </user-data-constraint>
   </security-constraint>
   <security-constraint>
-  	<web-resource-collection>
-  		<web-resource-name>FuncionarioGerente</web-resource-name>
-  		<url-pattern>/gerente/*</url-pattern>
-  		<http-method>GET</http-method>
-  		<http-method>POST</http-method>
-  	</web-resource-collection>
-  	<auth-constraint>
-  		<role-name>ADMINISTRADOR</role-name>
-  		<role-name>GERENTE</role-name>
-  	</auth-constraint>
-      <user-data-constraint>
-        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    <web-resource-collection>
+      <web-resource-name>FuncionarioGerente</web-resource-name>
+      <url-pattern>/gerente/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>ADMINISTRADOR</role-name>
+      <role-name>GERENTE</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
     </user-data-constraint>
   </security-constraint>
   <security-constraint>
-  	<web-resource-collection>
-  		<web-resource-name>FuncionarioOperador</web-resource-name>
-  		<url-pattern>/operador/*</url-pattern>
-  		<http-method>GET</http-method>
-  		<http-method>POST</http-method>
-  	</web-resource-collection>
-  	<auth-constraint>
-  		<role-name>ADMINISTRADOR</role-name>
-  		<role-name>GERENTE</role-name>
-  		<role-name>OPERADOR</role-name>
-  	</auth-constraint>
-      <user-data-constraint>
-        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    <web-resource-collection>
+      <web-resource-name>FuncionarioOperador</web-resource-name>
+      <url-pattern>/operador/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>ADMINISTRADOR</role-name>
+      <role-name>GERENTE</role-name>
+      <role-name>OPERADOR</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
     </user-data-constraint>
   </security-constraint>
   <security-constraint>
-  	<web-resource-collection>
-  		<web-resource-name>Cliente</web-resource-name>
-  		<url-pattern>/cliente/*</url-pattern>
-  		<http-method>GET</http-method>
-  		<http-method>POST</http-method>
-  	</web-resource-collection>
-  	<auth-constraint>
-  		<role-name>CLIENTE</role-name>
-  	</auth-constraint>
-      <user-data-constraint>
-        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    <web-resource-collection>
+      <web-resource-name>Cliente</web-resource-name>
+      <url-pattern>/cliente/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>CLIENTE</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
     </user-data-constraint>
   </security-constraint>
 </web-app>

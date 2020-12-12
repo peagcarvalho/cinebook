@@ -1,12 +1,11 @@
 package br.edu.ifpb.cinebook.servico;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import br.edu.ifpb.cinebook.modelo.Filme;
 import br.edu.ifpb.cinebook.modelo.Sessao;
 
@@ -14,7 +13,7 @@ import br.edu.ifpb.cinebook.modelo.Sessao;
 public class SessaoServico {
 	
 	@PersistenceContext
-	private EntityManager manager;
+	public EntityManager manager;
 	
 	@PostConstruct
 	public void aposCriacao() {
@@ -23,29 +22,52 @@ public class SessaoServico {
 	
 	public void cadastrar(Sessao sessao) {
 		System.out.println("[INFO] Salvando a Sessao "  + sessao.getId());
+		
 		manager.persist(sessao);
+		
 		System.out.println("[INFO] Salvou a Sessao " + sessao.getId());
 	}
 	
 	public List<Sessao> listarTodasSessoes() {
-	    System.out.println("[INFO] Consultando todas as sessoes não esgotadas");
+	    System.out.println("[INFO] Consultando todas as sessoes");
 	    
-		return manager.createQuery("select s from Sessao s where esgotada like 0", Sessao.class).getResultList();
+	    TypedQuery<Sessao> query = manager.createQuery("select s from Sessao s", Sessao.class);
+
+	    List<Sessao> sessoes = query.getResultList();
+	    
+		return sessoes;
+	}
+	
+	public List<Sessao> listarTodasSessoesAbertas() {
+	    System.out.println("[INFO] Consultando todas as sessoes abertas (não-esgotadas)");
+	    
+	    TypedQuery<Sessao> query = manager.createQuery("select s from Sessao s where esgotada like 0", Sessao.class);
+
+	    List<Sessao> sessoes = query.getResultList();
+	    
+		return sessoes;
 	}
 	
 	public List<Sessao> filtrarSessoesPorFilme(Filme filme) {
-		List<Sessao> sessoes = listarTodasSessoes();
-		List<Sessao> sessoesResultado = new ArrayList<Sessao>();
-		
-		for (int contador = 0; contador < sessoes.size(); contador++) {
-			Sessao sessao = sessoes.get(contador);
-			
-			if (sessao.getFilme().getId() == filme.getId()) {
-				sessoesResultado.add(sessao);
-			}
-		}
-		
-		return sessoesResultado;
+		System.out.println("[INFO] Consultando todas as sessoes de um filme");
+	    
+	    TypedQuery<Sessao> query = manager.createQuery("select s from Sessao s where filme_id = :filmeId and esgotada like 0", Sessao.class);
+	    query.setParameter("filmeId", filme.getId());
+
+	    List<Sessao> sessoes = query.getResultList();
+	    
+		return sessoes;
+	}
+	
+	public List<Sessao> filtrarSessoesPorCinema(Integer cinemaId) {
+		System.out.println("[INFO] Consultando todas as sessoes de um cinema");
+	    
+	    TypedQuery<Sessao> query = manager.createQuery("select s from Sessao s where cinema_id = :cinemaId", Sessao.class);
+	    query.setParameter("cinemaId", cinemaId);
+
+	    List<Sessao> sessoes = query.getResultList();
+	    
+		return sessoes;
 	}
 	
 	public Sessao buscarPeloId(Integer sessaoId) {
@@ -57,21 +79,13 @@ public class SessaoServico {
 	}
 	
 	public void atualizar(Sessao sessao) {
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-		
 		manager.merge(sessao);
-		tx.commit();
 	}
 	
 	public void excluir(Integer sessaoId) {
 		Sessao sessao = buscarPeloId(sessaoId);
 		
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-		
 		manager.remove(sessao);
-		tx.commit();
 	}
 
 }

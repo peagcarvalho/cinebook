@@ -1,16 +1,19 @@
 package br.edu.ifpb.cinebook.servico;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+
 import br.edu.ifpb.cinebook.modelo.Ingresso;
 import br.edu.ifpb.cinebook.modelo.Reserva;
 import br.edu.ifpb.cinebook.modelo.Sessao;
 
+@DeclareRoles({"ADMINISTRADOR", "CLIENTE", "OPERADOR", "GERENTE"})
 @Stateful
 public class ReservaServico {
 	
@@ -22,74 +25,57 @@ public class ReservaServico {
 		System.out.println("[INFO] ReservaBean foi criado");
 	}
 	
+	@RolesAllowed("CLIENTE")
 	public void cadastrar(Reserva reserva) {
-		System.out.println("[INFO] Salvando a Reserva "  + reserva.getId());
+		Integer maiorId = (Integer) manager.createNativeQuery("select max(r.id) from reserva as r").getSingleResult();
 		
-		SessaoServico sessaoServico = new SessaoServico();
-		List<Ingresso> ingressos = reserva.getIngressos();
-		List<Sessao> sessoes = new ArrayList<Sessao>();
+		if (maiorId == null) {
+			maiorId = 1;
+		} else {
+			maiorId++;
+		}
 		
-		for (int contador = 0; contador < ingressos.size(); contador++) {
-			Ingresso ingresso = ingressos.get(contador);
-			Sessao sessao = sessaoServico.buscarPeloId(ingresso.getSessao().getId());
+		for (Ingresso ingresso : reserva.getIngressos()) {
+			Reserva reservaId = new Reserva();
+			reservaId.setId(maiorId);
 			
-			if (sessao.getQuantMaxIngressos() == sessao.getQuantIngressosVendidos()) {
-				sessao.setEsgotada(true);
-				
-				reserva.getIngressos().remove(ingresso);
-			} else {
-				sessao.setQuantIngressosVendidos(sessao.getQuantIngressosVendidos() + 1);
-				
-				if (sessao.getQuantMaxIngressos() == sessao.getQuantIngressosVendidos()) {
-					sessao.setEsgotada(true);
-				}
-			}
-			
-			sessoes.add(sessao);
+			ingresso.setReserva(reservaId);
 		}
 		
 		manager.persist(reserva);
 		
-		for (Sessao s : sessoes) {
-			sessaoServico.atualizar(s);
-		}
-		
 		System.out.println("[INFO] Salvou a Reserva " + reserva.getId());
 	}
 	
-	/*public Reserva retornarSessoesDisponiveis(Reserva reserva) {
-		return null;
-	}*/
-	
+	@RolesAllowed("CLIENTE")
 	public List<Reserva> listarTodasReservas() {
 	    System.out.println("[INFO] Consultando todas as reservas");
+	    
 		return manager.createQuery("select r from Reserva r", Reserva.class).getResultList();
 	}
 	
+	@RolesAllowed("CLIENTE")
+	public List<Reserva> listarReservasDoCliente(String email) {
+	    System.out.println("[INFO] Consultando todas as reservas de um cliente");
+	    
+	    return manager.createQuery("select r from Reserva r inner join fetch r.ingressos where r.cliente = '" + email + "' group by r.id", Reserva.class).getResultList();
+	}
+	
+	@RolesAllowed("CLIENTE")
 	public Reserva buscarPeloId(Integer reservaId) {
 	    System.out.println("[INFO] Consultando Reserva pelo Id");
 
-		Reserva reserva = manager.find(Reserva.class, reservaId);
+		TypedQuery<Reserva> query = manager.createQuery("select r from Reserva r inner join fetch r.ingressos where r.id = " + reservaId, Reserva.class);
 		
-		return reserva;
+		return query.getSingleResult();
 	}
 	
-	public void atualizar(Reserva reserva) {
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-		
-		manager.merge(reserva);
-		tx.commit();
-	}
-	
+	@RolesAllowed("CLIENTE")
 	public void excluir(Integer reservaId) {
+		System.out.println("[INFO] Excluindo Reserva pelo Id");
 		Reserva reserva = buscarPeloId(reservaId);
 		
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-		
 		manager.remove(reserva);
-		tx.commit();
 	}
 
 }

@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:f="http://xmlns.jcp.org/jsf/core" 
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<h:messages id="msg"/>
+	<fieldset>
+		<legend>Selecione o filme</legend>
+		
+		<h:outputLabel value="Filme:" />
+		<h:selectOneMenu value="#{sessaoBean.filmeId}" id="filmeMenu">
+			<f:selectItems value="#{sessaoBean.filmes}" var="filme"
+				itemLabel="#{filme.titulo}" itemValue="#{filme.id}">
+			</f:selectItems>
+		</h:selectOneMenu>
+		<br/>
+	
+	</fieldset>
+	
+	<h:panelGrid columns="3">
+		<h:outputLabel value="Sala:"/>
+		<h:inputText id="sala" value="#{sessaoBean.sessao.sala}" required="true">
+		</h:inputText>
+		<h:message for="sala"/>
+	
+		<h:outputLabel value="Data de Exibição:" />
+		<h:inputText id="data_exib" value="#{sessaoBean.sessao.dataExibicao}" required="true">
+			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Brasilia"/>
+		</h:inputText>
+		<h:message for="data_exib"/>
+		
+		<h:outputLabel value="Hora de Exibição:"/>
+		<h:inputText id="hora_exib" value="#{sessaoBean.sessao.horaExibicao}" required="true">
+			<f:convertDateTime type="time" pattern="HH:mm" locale="pt-BR" timeZone="America/Brasilia"/>
+		</h:inputText>
+		<h:message for="hora_exib"/>
+		
+		<h:outputLabel value="Quantidade de Ingressos"/>
+		<h:inputText id="quantMaxIngressos" value="#{sessaoBean.quantMaxIngressos}" required="true">
+		</h:inputText>
+		<h:message for="quantMaxIngressos"/>
+		
+		<h:outputLabel value="Legendado" />
+		<h:selectBooleanCheckbox id="cbLegendado"  value="#{sessaoBean.legendado}" />
+		<br/>
+		<h:outputLabel value="3D" />
+		<h:selectBooleanCheckbox id="cb3d" value="#{sessaoBean.tresDimensoes}" />
+		
+	</h:panelGrid>
+	
+</ui:composition>

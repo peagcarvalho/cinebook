@@ -5,7 +5,7 @@
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:jsf="http://xmlns.jcp.org/jsf">
 				
-	<ui:param name="title" value="Cinebook" />
+	<ui:param name="title" value="Cadastrar filme - Cinebook" />
 	
 	<ui:define name="titulo">CADASTRAR NOVO FILME</ui:define>
 	
@@ -14,7 +14,9 @@
 		<h:form id="form">
 			<ui:include src="/WEB-INF/template/includes/form_filme.xhtml"/>
 		
-			<h:commandButton action="#{filmeBean.cadastrar}" value="Cadastrar"/>
+			<h:commandButton id="botaoCadastrar" action="#{filmeBean.cadastrar}" value="Cadastrar">
+			</h:commandButton>
+			
 		</h:form>
 	
 	</ui:define>

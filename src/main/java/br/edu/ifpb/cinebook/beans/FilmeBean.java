@@ -9,13 +9,15 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import br.edu.ifpb.cinebook.modelo.Cinema;
 import br.edu.ifpb.cinebook.modelo.Filme;
 import br.edu.ifpb.cinebook.modelo.Sessao;
 import br.edu.ifpb.cinebook.servico.FilmeServico;
+import br.edu.ifpb.cinebook.servico.SessaoServico;
 
 @Named
 @ViewScoped
-public class FilmeBean implements Serializable{
+public class FilmeBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -23,6 +25,7 @@ public class FilmeBean implements Serializable{
 	private Integer filmeId;
 	private String buscaFilme;
 	private String genero;
+	private String generoConcatenado;
 	
 	private List<Filme> filmes;
 	private List<String> generos;
@@ -30,6 +33,8 @@ public class FilmeBean implements Serializable{
 	
 	@EJB
 	private FilmeServico servico;
+	@EJB
+	private SessaoServico sessaoServico;
 	@Inject
 	private FacesContext facesContext;
 	
@@ -43,7 +48,7 @@ public class FilmeBean implements Serializable{
 		generos = new ArrayList<String>();
 	}
 	
-	public void cadastrar() {
+	public String cadastrar() {
 		filme.setGeneros(generos);
 		
 		servico.cadastrar(filme);
@@ -51,6 +56,22 @@ public class FilmeBean implements Serializable{
 		
 		filme = new Filme();
 		generos = new ArrayList<String>();
+		
+		return "admin/painelAdmin.xhtml?faces-redirect=true";
+	}
+	
+	public String editar() {
+		filme.setGeneros(generos);
+		
+		servico.atualizar(filme);
+		
+		return "admin/listaDeFilmes.xhtml?faces-redirect=true";
+	}
+	
+	public String excluir(Filme filme) {
+		servico.excluir(filme.getId());
+		
+		return "admin/listaDeFilmes.xhtml?faces-redirect=true";
 	}
 	
 	public void adicionarGenero() {
@@ -59,9 +80,14 @@ public class FilmeBean implements Serializable{
 		genero = "";
 	}
 	
+	public void removerGenero(String genero) {
+		System.out.println(genero);
+		generos.remove(genero);
+	}
+	
 	public void carregarSessoesFilme() {
 		if (filme.getSessoes() != null && !filme.getSessoes().isEmpty()) {
-			sessoes = filme.getSessoes();
+			sessoes = sessaoServico.filtrarSessoesPorFilme(filme);
 		} else {
 			sessoes = new ArrayList<Sessao>();
 		}
@@ -75,8 +101,34 @@ public class FilmeBean implements Serializable{
 				generosConcatenados += ", " + filme.getGeneros().get(contador);
 			}
 			
-			genero = generosConcatenados;
+			generoConcatenado = generosConcatenados;
 		}
+	}
+	
+	public void concatenarEnderecoCinema() {
+		if (sessoes != null && sessoes.size() > 0) {
+			for (int contador = 0; contador < sessoes.size(); contador++) {
+				Cinema cinema = sessoes.get(contador).getCinema();
+				
+				String enderecoConcatenado = cinema.getEndereco().getLogradouro() + ", " + cinema.getEndereco().getNumero() + ". " + 
+											 cinema.getEndereco().getBairro() + " - " + cinema.getEndereco().getCidade() + ", " + 
+											 cinema.getEndereco().getEstado();
+				
+				sessoes.get(contador).getCinema().setEnderecoConcatenado(enderecoConcatenado);
+				System.out.println(enderecoConcatenado);
+			}
+			
+		}
+	}
+	
+	public void preencherTabelaGeneros() {
+		if (filme.getGeneros() != null && filme.getGeneros().size() > 0) {
+			generos = filme.getGeneros();
+		}
+	}
+	
+	public void buscarFilmesEmCartaz() {
+		filmes = servico.listarFilmesEmCartaz();
 	}
 	
 	public List<Filme> listarFilmesPorTexto() {
@@ -89,10 +141,6 @@ public class FilmeBean implements Serializable{
 	
 	public Filme buscar() {
 		return servico.buscarPeloId(filme.getId());
-	}
-	
-	public void excluir() {
-		servico.excluir(filme.getId());
 	}
 	
 	public Filme getFilme() {
@@ -141,6 +189,14 @@ public class FilmeBean implements Serializable{
 
 	public void setSessoes(List<Sessao> sessoes) {
 		this.sessoes = sessoes;
+	}
+
+	public String getGeneroConcatenado() {
+		return generoConcatenado;
+	}
+
+	public void setGeneroConcatenado(String generoConcatenado) {
+		this.generoConcatenado = generoConcatenado;
 	}
 
 }

@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -109,6 +111,10 @@ public class Usuario {
 
 	public void setPapeis(List<String> papeis) {
 		this.papeis = papeis;
+	}
+	
+	public void adicionarPapel(String papel) {
+		papeis.add(papel);
 	}
 
 	public Cinema getCinema() {

@@ -22,10 +22,7 @@ public class Ingresso {
 	private Date dataNascimento;
 	@Lob
 	private byte[] voucher;
-	
-	@ManyToOne
-	@JoinColumn(name = "sessao_id")
-	private Sessao sessao;
+	private String tipo;
 	
 	@ManyToOne
 	@JoinColumn(name = "reserva_id")
@@ -63,20 +60,28 @@ public class Ingresso {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public Sessao getSessao() {
-		return sessao;
-	}
-
-	public void setSessao(Sessao sessao) {
-		this.sessao = sessao;
-	}
-
 	public byte[] getVoucher() {
 		return voucher;
 	}
 
 	public void setVoucher(byte[] voucher) {
 		this.voucher = voucher;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public Reserva getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
 	}
 	
 }

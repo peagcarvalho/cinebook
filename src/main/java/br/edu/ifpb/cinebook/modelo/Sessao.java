@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +25,9 @@ public class Sessao {
 	private Date dataExibicao;
 	@Temporal(TemporalType.TIME)
 	private Date horaExibicao;
+	@Column(columnDefinition = "boolean default false")
 	private boolean legendado;
+	@Column(columnDefinition = "boolean default false")
 	private boolean tresDimensoes;
 	private int quantMaxIngressos;
 	private int quantIngressosVendidos;
@@ -37,8 +38,8 @@ public class Sessao {
 	@JoinColumn(name = "cinema_id")
 	private Cinema cinema;
 	
-	@OneToMany(mappedBy = "sessao", cascade = CascadeType.REMOVE)
-	private List<Ingresso> ingressos;
+	@OneToMany(mappedBy = "sessao")
+	private List<Reserva> reservas;
 	
 	@ManyToOne
 	@JoinColumn(name = "filme_id")
@@ -130,6 +131,14 @@ public class Sessao {
 
 	public void setCinema(Cinema cinema) {
 		this.cinema = cinema;
+	}
+
+	public List<Reserva> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
 	}
 
 }

@@ -47,7 +47,7 @@
 		<h:outputLabel value="Gênero:" />
 		<h:inputText id="generoMenu" value="#{filmeBean.genero}"/>
 		
-		<h:commandButton action="#{filmeBean.adicionarGenero}" value="Adicionar">
+		<h:commandButton id="botaoAdicionarGenero" action="#{filmeBean.adicionarGenero}" value="Adicionar">
 			<f:ajax execute="generoMenu" render="generosFilmeHTML generoMenu msg"/>
 		</h:commandButton>
 		<br/>

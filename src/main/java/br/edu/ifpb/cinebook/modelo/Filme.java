@@ -2,19 +2,14 @@ package br.edu.ifpb.cinebook.modelo;
 
 import java.util.Date;
 import java.util.List;
-
-import javax.annotation.PostConstruct;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,65 +24,26 @@ public class Filme {
 	private String titulo;
 	private String capa;
 	private String sinopse;
-//	@Enumerated(EnumType.STRING)
 	private String classificacao;
 	@Temporal(TemporalType.DATE)
 	private Date anoLancamento;
-	/*@ElementCollection
-	@CollectionTable(name = "filme_diretor", joinColumns = @JoinColumn(name = "filme_id"))
-	@Column(name = "diretor")
-	private List<String> diretores;*/
 	
 	@ElementCollection
 	@CollectionTable(name = "filme_genero", joinColumns = @JoinColumn(name = "filme_id"))
 	@Column(name = "genero")
 	private List<String> generos;
 	
-	/*@ElementCollection
-	@CollectionTable(name = "filme_palavras_chave", joinColumns = @JoinColumn(name = "filme_id"))
-	@Column(name = "palavras_chave")
-	private List<String> palavrasChave;*/
-	
 	@OneToMany(mappedBy = "filme", fetch = FetchType.EAGER)
 	private List<Sessao> sessoes;
+	
+	@Transient
+	private String generosConcatenados;
 	
 	public Filme() {}
 	
 	public void adicionarGenero(String genero) {
 		generos.add(genero);
 	}
-	
-	/*public void adicionarDiretor(String diretor) {
-		diretores.add(diretor);
-	}
-	
-	public void adicionarPalavraChave(String palavraChave) {
-		palavrasChave.add(palavraChave);
-	}
-	
-	public String concatenarDiretores() {
-		String todosDiretores = diretores.get(0);
-		
-		if (diretores.size() > 1) {
-			for (int contador = 1; contador < diretores.size(); contador++) {
-				todosDiretores += ", " + diretores.get(contador);
-			}
-		}
-		
-		return todosDiretores;
-	}
-	
-	public String concatenarPalavrasChave() {
-		String todasPalavrasChave = generos.get(0);
-		
-		if (palavrasChave.size() > 1) {
-			for (int contador = 1; contador < palavrasChave.size(); contador++) {
-				todasPalavrasChave += ", " + palavrasChave.get(contador);
-			}
-		}
-		
-		return todasPalavrasChave;
-	}*/
 
 	public Integer getId() {
 		return id;
@@ -120,22 +76,6 @@ public class Filme {
 	public void setGeneros(List<String> generos) {
 		this.generos = generos;
 	}
-	
-	/*public List<String> getDiretores() {
-		return diretores;
-	}
-
-	public void setDiretores(List<String> diretores) {
-		this.diretores = diretores;
-	}
-
-	public List<String> getPalavrasChave() {
-		return palavrasChave;
-	}
-
-	public void setPalavrasChave(List<String> palavrasChave) {
-		this.palavrasChave = palavrasChave;
-	}*/
 
 	public String getSinopse() {
 		return sinopse;
@@ -167,6 +107,22 @@ public class Filme {
 
 	public void setSessoes(List<Sessao> sessoes) {
 		this.sessoes = sessoes;
+	}
+
+	public String getGenerosConcatenados() {
+		return generosConcatenados;
+	}
+	
+	public void concatenarGeneros() {
+		if (getGeneros().size() > 0 && getGeneros() != null) {
+			String generosConcatenados = getGeneros().get(0);
+			
+			for (int contador = 1; contador < getGeneros().size(); contador++) {
+				generosConcatenados += ", " + getGeneros().get(contador);
+			}
+			
+			this.generosConcatenados = generosConcatenados;
+		}
 	}
 	
 }

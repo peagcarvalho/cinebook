@@ -4,13 +4,10 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -28,7 +25,7 @@ public class Cinema {
 	@OneToMany(mappedBy = "cinema")
 	private List<Usuario> funcionarios;
 	
-	@OneToMany(mappedBy = "cinema", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "cinema", cascade = CascadeType.ALL)
 	private List<Sessao> sessoes;
 
 	@Transient
@@ -81,13 +78,17 @@ public class Cinema {
 	public void setFuncionarios(List<Usuario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
-
+	
+	public void concatenarEndereco() {
+		setEnderecoConcatenado(endereco.toString());
+	}
+	
 	public String getEnderecoConcatenado() {
 		return enderecoConcatenado;
 	}
 
-	public void concatenarEndereco() {
-		enderecoConcatenado = endereco.toString();
+	public void setEnderecoConcatenado(String enderecoConcatenado) {
+		this.enderecoConcatenado = enderecoConcatenado;
 	}
 	
 }

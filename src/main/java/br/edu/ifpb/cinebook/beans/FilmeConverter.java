@@ -7,7 +7,6 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
-
 import br.edu.ifpb.cinebook.modelo.Filme;
 import br.edu.ifpb.cinebook.servico.FilmeServico;
 
@@ -29,7 +28,7 @@ public class FilmeConverter implements Converter<Filme> {
 			Filme filme = servico.buscarPeloId(id);
 			return filme;
 		} catch (NumberFormatException e) {
-			throw new ConverterException(new FacesMessage("Filme com ID inválido"), e);
+			throw new ConverterException(new FacesMessage("Não é possível buscar filme pelo id"), e);
 		}
 		
 	}
@@ -41,9 +40,9 @@ public class FilmeConverter implements Converter<Filme> {
 		}
 		
 		if (filme.getId() != null) {
-			return filme.getId().toString();
+			return Integer.toString(filme.getId());
 		} else {
-			throw new ConverterException(new FacesMessage("Filme com ID inválido"), null);
+			throw new ConverterException(new FacesMessage("Não é possível converter filme em String. Id inválido"), null);
 		}
 	}
 

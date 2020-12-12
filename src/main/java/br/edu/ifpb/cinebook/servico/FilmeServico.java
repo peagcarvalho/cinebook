@@ -8,14 +8,9 @@ import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
 
 import br.edu.ifpb.cinebook.modelo.Filme;
 
@@ -24,7 +19,7 @@ import br.edu.ifpb.cinebook.modelo.Filme;
 public class FilmeServico {
 		
 	@PersistenceContext
-	private EntityManager manager;
+	public EntityManager manager;
 	
 	@PostConstruct
 	public void aposCriacao() {
@@ -41,7 +36,12 @@ public class FilmeServico {
 	@PermitAll
 	public List<Filme> listarTodosFilmes() {
 	    System.out.println("[INFO] Consultando todos os filmes");
-		return manager.createQuery("select f from Filme f", Filme.class).getResultList();
+	    
+	    TypedQuery<Filme> query = manager.createQuery("select f from Filme f", Filme.class);
+	    
+	    List<Filme> filmes = query.getResultList();
+	    
+		return filmes;
 	}
 	
 	@PermitAll
@@ -51,27 +51,42 @@ public class FilmeServico {
 	    
 		Filme filme = (Filme) query.getSingleResult();
 		
+		System.out.println("Filme consultado: " + filme.getTitulo());
+		
 		return filme;
 	}
 	
 	@RolesAllowed("ADMINISTRADOR")
 	public void atualizar(Filme filme) {
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
+		System.out.println("Editando filme " + filme.getTitulo());
 		
 		manager.merge(filme);
-		tx.commit();
+		
+		System.out.println("Filme editado: " + filme.getTitulo());
 	}
 	
 	@RolesAllowed("ADMINISTRADOR")
 	public void excluir(Integer filmeId) {
 		Filme filme = buscarPeloId(filmeId);
 		
-		EntityTransaction tx = manager.getTransaction();
-		tx.begin();
-		
 		manager.remove(filme);
-		tx.commit();
+	}
+	
+	@PermitAll
+	public List<Filme> listarFilmesEmCartaz() {
+		System.out.println("Consultando filmes em Cartaz");
+		TypedQuery<Filme> query = manager.createQuery("select f from Filme f", Filme.class);
+	    
+	    List<Filme> filmes = query.getResultList();
+	    List<Filme> filmesEmCartaz = new ArrayList<Filme>();
+	    
+	    for (Filme filme : filmes) {
+	    	if (filme.getSessoes().size() > 0) {
+	    		filmesEmCartaz.add(filme);
+	    	}
+	    }
+	    
+	    return filmesEmCartaz;
 	}
 	
 	@PermitAll
@@ -82,7 +97,11 @@ public class FilmeServico {
 		for(int contador = 0; contador < filmes.size(); contador++) {
 			Filme filme = filmes.get(contador);
 			
-			if (filme.getTitulo().contains(string) || filme.getSinopse().contains(string)) {
+			System.out.println(filme.getTitulo());
+			
+			String titulo = filme.getTitulo();
+			
+			if (titulo.contains(string)) {
 				filmesResultado.add(filme);
 			}
 		}

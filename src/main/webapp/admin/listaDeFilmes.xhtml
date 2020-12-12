@@ -29,9 +29,10 @@
 			<h:outputLabel value="Classificação: #{filme.classificacao}" />
 		</h:column>
 		<h:column>
-			<h:link value="Editar" outcome="editarFilme">
+			<h:link id="linkEditar" value="Editar" outcome="editarFilme">
 				<f:param name="id" value="#{filme.id}"></f:param>
 			</h:link>
+			<h:commandButton id="botaoExcluir" action="#{filmeBean.excluir(filme)}" value="Excluir" />
 		</h:column>
 	
 	</h:dataTable>

@@ -2,7 +2,9 @@ package br.edu.ifpb.cinebook.modelo;
 
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,7 +27,11 @@ public class Reserva {
 	@JoinColumn(name = "cliente_id")
 	private Usuario cliente;
 	
-	@OneToMany(mappedBy = "reserva", cascade = CascadeType.REMOVE)
+	@ManyToOne
+	@JoinColumn(name = "sessao_id")
+	private Sessao sessao;
+	
+	@OneToMany(mappedBy = "reserva", cascade = CascadeType.PERSIST)
 	private List<Ingresso> ingressos;
 	
 	public Reserva() {
@@ -36,14 +42,14 @@ public class Reserva {
 		ingressos.add(ingresso);
 	}
 	
-	public void calcularValorTotal() {
+	public float calcularValorTotal() {
 		float valorTotal = 0;
 		
 		for (int contador = 0; contador < ingressos.size(); contador++) {
 			valorTotal += ingressos.get(contador).getValor();
 		}
 		
-		this.setValorTotal(valorTotal);
+		return valorTotal;
 	}
 
 	public Integer getId() {
@@ -92,6 +98,14 @@ public class Reserva {
 
 	public void setQuantIngressos(int quantIngressos) {
 		this.quantIngressos = quantIngressos;
+	}
+
+	public Sessao getSessao() {
+		return sessao;
+	}
+
+	public void setSessao(Sessao sessao) {
+		this.sessao = sessao;
 	}
 	
 }

@@ -5,18 +5,19 @@
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:jsf="http://xmlns.jcp.org/jsf">
 
-<ui:param name="title" value="Cinebook" />
+<ui:param name="title" value="Criar conta - Cinebook" />
 
 <ui:define name="titulo">CRIE SUA CONTA</ui:define>
 
 <ui:define name="conteudo">
 
-	<h:form>
-		<input type="hidden" name="papel" value="CLIENTE"/>
+	<input type="hidden" name="papel" value="CLIENTE"/>
+		
+	<h:form id="form">
 	
 		<ui:include src="/WEB-INF/template/includes/form_cliente.xhtml"/>
 	
-		<h:commandButton action="#{usuarioBean.cadastrarCliente}" value="Criar Conta"/>
+		<h:commandButton id="botaoCriarConta" action="#{usuarioBean.cadastrarCliente}" value="Criar Conta"/>
 	
 	</h:form>
 

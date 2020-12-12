@@ -5,16 +5,20 @@
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:jsf="http://xmlns.jcp.org/jsf">
 
-<ui:param name="title" value="Cinebook" />
+<ui:param name="title" value="Cadastrar Funcionário - Cinebook" />
 
 <ui:define name="titulo">CADASTRAR FUNCIONÁRIO</ui:define>
 
 <ui:define name="conteudo">
 
-	<h:form>
+	<f:metadata>
+		<f:viewAction action="#{usuarioBean.recuperarCinemaId}"></f:viewAction>
+	</f:metadata>
+
+	<h:form id="form">
 		<ui:include src="/WEB-INF/template/includes/form_funcionario.xhtml"/>
 	
-		<h:commandButton action="#{usuarioBean.cadastrarFuncionario}" value="Cadastrar"/>
+		<h:commandButton id="botaoCadastrar" action="#{usuarioBean.cadastrarFuncionario}" value="Cadastrar"/>
 	</h:form>
 
 </ui:define>

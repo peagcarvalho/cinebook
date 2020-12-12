@@ -8,21 +8,27 @@
 	<h:messages id="msg"/>
 	<h:panelGrid columns="3">
 		<h:outputLabel value="Nome:" />
-		<h:inputText id="nome" value="#{usuarioBean.usuario.nome}" required="true"/>
+		<h:inputText id="nome" value="#{usuarioBean.usuario.nome}" required="true">
+			<f:validateLength minimum="6" maximum="255"/>
+		</h:inputText>
 		<h:message for="nome"/>
 		
 		<h:outputLabel value="CPF:"/>
-		<h:inputText id="cpf" value="#{usuarioBean.usuario.cpf}" required="true"/>
+		<h:inputText id="cpf" value="#{usuarioBean.usuario.cpf}" required="true">
+			<f:validateLength minimum="14" maximum="14"/>
+			<f:validator validatorId="cpfValidator"></f:validator>
+		</h:inputText>
 		<h:message for="cpf"/>
 		
 		<h:outputLabel value="Data de Nascimento:"/>
 		<h:inputText id="data_nasc" value="#{usuarioBean.usuario.dataNascimento}" required="true">
-			<f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Brasilia"/>
+			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
 		</h:inputText>
 		<h:message for="data_nasc"/>
 		
 		<h:outputLabel value="E-mail:"/>
 		<h:inputText id="email" value="#{usuarioBean.usuario.email}" required="true">
+			<f:validator validatorId="emailValidator"></f:validator>
 		</h:inputText>
 		<h:message for="email"/>
 		

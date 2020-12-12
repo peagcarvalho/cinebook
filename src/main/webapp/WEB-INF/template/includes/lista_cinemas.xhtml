@@ -5,8 +5,7 @@
 				xmlns:jsf="http://xmlns.jcp.org/jsf"
 				xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-	<h3>Cinemas</h3>
-
+	<h:messages id="msg"/>
 	<h:dataTable id="cinemas" value="#{cinemaBean.cinemas}" var="cinema">
 				<h:column>
 			<f:facet name="header">Nome</f:facet>
@@ -21,10 +20,11 @@
 			 		#{cinema.enderecoConcatenado}
     	</h:column>
     	<h:column>
-			<h:link value="Ver detalhes" outcome="detalhesCinema">
-				<f:param name="id" value="#{cinema.id}"></f:param>			
+			<h:link value="Editar" outcome="/gerente/editarCinema">
+				<f:param name="id" value="#{cinema.id}"></f:param>
 			</h:link>
-    	</h:column>
+		</h:column>
+    	
 	</h:dataTable>
 
 </ui:composition>

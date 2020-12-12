@@ -36,16 +36,6 @@ public class LoginBean {
 		usuario = new Usuario();
 	}
 	
-	public boolean verificarPapelAdmin() {
-		if (getUsuarioLogado() != null) {
-			String papel = getUsuarioLogado().getPapeis().get(0);
-			
-			return papel.equals("ADMINISTRADOR");
-		}
-		
-		return false;
-	}
-	
 	public String login() {
 		
 		System.out.println("Login: "+usuario.getEmail()+" e senha: "+usuario.getSenha());
@@ -75,13 +65,13 @@ public class LoginBean {
 			
 			switch (papel) {
 			case "ADMINISTRADOR":
-				return "/admin/home_admin.xhtml?faces-redirect=true";
+				return "admin/painelAdmin?faces-redirect=true";
 			case "CLIENTE":
-				return "/paginaInicial.xhtml?faces-redirect=true";
+				return "paginaInicial.xhtml?faces-redirect=true";
 			case "GERENTE":
-				return "/cadastroFuncionario.xhtml?faces-redirect=true";
+				return "gerente/painelGerente?faces-redirect=true";
 			case "OPERADOR":
-				return "/cadastroSessao.xhtml?faces-redirect=true";
+				return "operador/painelOperador?faces-redirect=true";
 			}
 			
 			break;

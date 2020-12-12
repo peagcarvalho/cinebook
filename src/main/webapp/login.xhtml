@@ -6,7 +6,7 @@
 
 	<ui:composition template="WEB-INF/template/template.xhtml">
 	
-	<ui:param name="title" value="Cinebook" />
+	<ui:param name="title" value="Entre com sua conta - Cinebook" />
 	
 	<ui:define name="titulo">ENTRE COM SUA CONTA</ui:define>
 	
@@ -24,7 +24,7 @@
 			<h:inputSecret id="senha" label="senha" value="#{loginBean.usuario.senha}" required="true">
 			</h:inputSecret>
 		
-			<h:commandButton action="#{loginBean.login}" value="Entrar"/>
+			<h:commandButton id="botaoLogar" action="#{loginBean.login}" value="Entrar"/>
 		
 			</h:panelGrid>
 		</h:form>
