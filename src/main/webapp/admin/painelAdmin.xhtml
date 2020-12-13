@@ -1,0 +1,25 @@
+<ui:composition template="/WEB-INF/template/template.xhtml" 
+				xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:f="http://xmlns.jcp.org/jsf/core" 
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<ui:param name="title" value="Painel de Administração - Cinebook" />
+
+<ui:define name="titulo">Painel de Administração</ui:define>
+
+<ui:define name="conteudo">
+
+<br/>
+<p><h:link outcome="cadastroFilme">Cadastrar Filme</h:link></p>
+<p><h:link outcome="listaDeFilmes">Lista de Filmes</h:link></p>
+
+<br/>
+<p><h:link outcome="cadastroCinema">Cadastrar Cinema</h:link></p>
+<p><h:link outcome="listaDeCinemas">Lista de Cinemas</h:link></p>
+<br/>
+<p><h:link outcome="/gerente/cadastroFuncionario">Cadastrar Funcionário</h:link></p>
+<p><h:link outcome="/gerente/listaDeFuncionarios">Lista de Gerentes</h:link></p>
+</ui:define>
+</ui:composition>

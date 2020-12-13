@@ -1,0 +1,34 @@
+<ui:composition template="/WEB-INF/template/template.xhtml" 
+				xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:f="http://xmlns.jcp.org/jsf/core" 
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:jsf="http://xmlns.jcp.org/jsf"
+                                                                  xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:param name="title" value="Cinebook" />
+
+<ui:define name="titulo">EDITAR CINEMA</ui:define>
+
+<ui:define name="conteudo">
+
+	<f:metadata>
+		<c:if test="#{request.userPrincipal.papel == 'ADMINISTRADOR'}">
+			<f:viewParam name="id" value="#{cinemaBean.cinema}" required="false"></f:viewParam>
+		</c:if>
+		
+		<f:viewAction action="#{cinemaBean.recuperarCinema}"></f:viewAction>
+	</f:metadata>
+	
+	<h:form id="form">
+	<h:messages id="msg"/>
+	
+		<ui:include src="/WEB-INF/template/includes/form_cinema.xhtml"/>
+		
+		<h:commandButton id="botaoSalvar" action="#{cinemaBean.editar}" value="Salvar">
+		</h:commandButton>
+	
+	</h:form>
+
+</ui:define>
+</ui:composition>

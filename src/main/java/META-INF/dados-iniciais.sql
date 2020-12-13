@@ -1,0 +1,2 @@
+insert into usuario(dataNascimento, nome, email, senha) values ("1996-12-05", "Admin", "admin@gmail.com", "$2a$10$vupV8Ch8axL7GWj8aGw9gOGY24437QZnNzukck9aGLycBtwQITVEK");
+insert into usuario_papeis (Usuario_email, papeis) values ("admin@gmail.com", "ADMINISTRADOR");

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	
+<ui:composition>
+	
+	<a href="#{request.contextPath}/paginaInicial.xhtml">
+		<h:graphicImage name="/img/logo-cinebook.png" width="180" height="35" alt="cinebook"/>
+	</a>
+	<h:panelGrid columns="3">
+			<c:if test="#{not empty request.userPrincipal}">
+				<h:graphicImage name="/img/user-icon.png" width="30" height="30" alt="userIcon"/>
+				<h:link outcome="cliente/editarConta.xhtml">
+					<h:outputText value="Olá, #{loginBean.usuarioLogado.nome}!" />
+				</h:link>
+			</c:if>
+			<c:if test="#{not empty request.userPrincipal}">
+				<h:form>
+					<h:commandButton id="botaoDeslogar" action="#{loginBean.logout}" value="Logout"/>
+				</h:form>
+			</c:if>
+	</h:panelGrid>
+			<nav>
+				<ul>
+					<c:if test="#{empty request.userPrincipal}">
+						<li><h:link id="linkLogar" outcome="/login.xhtml" value="Entrar" /></li>
+						<li><h:link outcome="/criarConta.xhtml" value="Cadastre-se" /></li>
+					</c:if>
+					<c:if test="#{not empty request.userPrincipal and request.userPrincipal.papel == 'ADMINISTRADOR'}">
+						<li><h:link outcome="/admin/painelAdmin.xhtml" value="Administração" /></li>
+					</c:if>
+					<c:if test="#{not empty request.userPrincipal and request.userPrincipal.papel == 'GERENTE'}">
+						<li><h:link outcome="/gerente/painelGerente.xhtml" value="Gerente" /></li>
+					</c:if>
+					<c:if test="#{not empty request.userPrincipal and request.userPrincipal.papel == 'OPERADOR'}">
+						<li><h:link outcome="/operador/painelOperador.xhtml" value="Operador" /></li>
+					</c:if>
+					<c:if test="#{not empty request.userPrincipal and request.userPrincipal.papel == 'CLIENTE'}">
+						<li><h:link outcome="/cliente/historicoDeReservas.xhtml" value="Minhas Reservas" /></li>
+					</c:if>
+				</ul>
+			</nav>
+	<h1><ui:insert name="titulo">Titulo</ui:insert></h1>
+
+</ui:composition>
+</html>

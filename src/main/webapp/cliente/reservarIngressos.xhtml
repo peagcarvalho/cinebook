@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:f="http://xmlns.jcp.org/jsf/core" 
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<ui:composition template="/WEB-INF/template/template.xhtml">
+
+<ui:param name="title" value="Comprar ingressos - Cinebook" />
+
+<ui:define name="titulo">COMPRAR INGRESSOS</ui:define>
+
+<ui:define name="conteudo">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{reservaIngressosBean.sessao}" required="true"
+			requiredMessage="Não foi especificado o id do filme">
+		</f:viewParam>
+	</f:metadata>
+	
+	<div>
+		<h:form id="form">
+		<h:messages id="msg"/>
+		
+		<fieldset>
+			<legend>Quem vai assistir?</legend>
+			
+			<h:outputLabel value="Nome completo: " />
+			<h:inputText id="inputNomeCompleto" value="#{reservaIngressosBean.ingresso.nomeCompleto}" />
+			<h:message for="inputNomeCompleto"/>
+			<br/>
+			
+			<h:outputLabel value="Data de Nascimento: " />
+			<h:inputText id="inputDataNasc" value="#{reservaIngressosBean.ingresso.dataNascimento}">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
+			</h:inputText>
+			<h:message for="inputDataNasc"/>
+			<br/>
+			
+			<h:outputLabel value="Valor: " />
+			
+			<h:selectOneMenu value="#{reservaIngressosBean.tipoIngresso}">
+				<f:selectItem itemValue="Inteira"/>
+				<f:selectItem itemValue="Meia-entrada"/>
+			</h:selectOneMenu>
+			
+			<br/>
+			<h:commandButton id="botaoAdicionarIngresso" action="#{reservaIngressosBean.adicionarIngresso()}" value="Adicionar">
+			</h:commandButton>
+			
+		</fieldset>
+		<br/>
+		
+		<fieldset>
+			<legend>Ingressos adicionados à compra</legend>
+			
+			<h:dataTable id="ingressoTable" var="ingresso" value="#{reservaIngressosBean.ingressos}">
+				<h:column>
+					<f:facet name="header">Informações:</f:facet>
+					
+					<h:outputLabel style="font-weight: bold" value="Nome completo: " />
+					<h:outputText value="#{ingresso.nomeCompleto}" />
+					<br/>
+					
+					<h:outputLabel style="font-weight: bold" value="Data de Nascimento: " />
+					<h:outputText value="#{ingresso.dataNascimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR"/>
+					</h:outputText>
+					<br/>
+					
+					<h:outputLabel style="font-weight: bold" value="Tipo de Ingresso: " />
+					<h:outputText value="#{ingresso.tipo}" />
+					<br/>
+					
+					<h:outputLabel style="font-weight: bold" value="Valor: " />
+					<h:outputText value="#{ingresso.valor}" />
+					<br/>
+				</h:column>
+			</h:dataTable>
+		
+		</fieldset>
+		<br/>
+			
+		<h:commandButton id="botaoReservar" action="#{reservaIngressosBean.cadastrar()}" value="Reservar">
+		</h:commandButton>
+			
+		</h:form>
+	</div>
+	
+</ui:define>
+</ui:composition>
+</html>

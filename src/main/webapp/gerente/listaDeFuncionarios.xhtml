@@ -1,0 +1,50 @@
+<ui:composition template="/WEB-INF/template/template.xhtml" 
+				xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:f="http://xmlns.jcp.org/jsf/core" 
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:param name="title" value="Funcionários Cadastrados - Cinebook" />
+
+<ui:define name="titulo">FUNCIONÁRIOS</ui:define>
+
+<ui:define name="conteudo">
+
+	<f:metadata>
+		<f:viewAction action="#{usuarioBean.recuperarCinemaId}"></f:viewAction>
+		
+		<c:if test="#{request.userPrincipal.papel == 'ADMINISTRADOR'}">
+			<f:viewAction action="#{usuarioBean.listarTodosOsFuncionarios}"></f:viewAction>
+		</c:if>
+		
+		<c:if test="#{request.userPrincipal.papel == 'GERENTE'}">
+			<f:viewAction action="#{usuarioBean.listarFuncionariosDoCinema}"></f:viewAction>
+		</c:if>
+	</f:metadata>
+
+	<h:dataTable id="funcionarios" value="#{usuarioBean.funcionarios}" var="funcionario">
+		<h:column>
+			<f:facet name="header">Nome</f:facet>
+			<h:outputText value="#{funcionario.nome}" />
+    	</h:column>
+    	<h:column>
+			<f:facet name="header">E-mail</f:facet>
+			<h:outputText value="#{funcionario.email}" />
+    	</h:column>
+    	<h:column>
+			<f:facet name="header">Data de Nascimento</f:facet>
+	 		<h:outputText value="#{funcionario.dataNascimento}">
+	 			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
+	 		</h:outputText>
+    	</h:column>
+    	<h:column>
+			<h:link value="Editar" outcome="editarFuncionario">
+				<f:param name="email" value="#{funcionario.email}"></f:param>
+			</h:link>
+		</h:column>
+	</h:dataTable>
+		
+</ui:define>
+</ui:composition>

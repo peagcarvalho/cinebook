@@ -1,0 +1,41 @@
+<ui:composition template="/WEB-INF/template/template.xhtml" 
+				xmlns="http://www.w3.org/1999/xhtml" 
+				xmlns:f="http://xmlns.jcp.org/jsf/core" 
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<ui:param name="title" value="Cinebook" />
+
+<ui:define name="titulo">FILMES CADASTRADOS</ui:define>
+
+<ui:define name="conteudo">
+
+	<h:dataTable id="filmes" value="#{filmeBean.filmes}" var="filme">
+		<h:column>
+			<f:facet name="header">Capa:</f:facet>
+			<h:graphicImage value="#{filme.capa}" width="100" height="140" alt="capa_filme"/> 
+		</h:column>
+		<h:column>
+			<f:facet name="header">Informações:</f:facet>
+			
+			<h:outputLabel value="Título: #{filme.titulo}" />
+			<br/>
+			<h:outputLabel value="Ano: " />
+			<h:outputLabel value="#{filme.anoLancamento}" >
+				<f:convertDateTime pattern="yyyy" locale="pt-BR" timeZone="America/Brasilia"/>
+			</h:outputLabel>
+			<br/>
+			<h:outputLabel value="Classificação: #{filme.classificacao}" />
+		</h:column>
+		<h:column>
+			<h:link id="linkEditar" value="Editar" outcome="editarFilme">
+				<f:param name="id" value="#{filme.id}"></f:param>
+			</h:link>
+			<h:commandButton id="botaoExcluir" action="#{filmeBean.excluir(filme)}" value="Excluir" />
+		</h:column>
+	
+	</h:dataTable>
+
+</ui:define>
+</ui:composition>
