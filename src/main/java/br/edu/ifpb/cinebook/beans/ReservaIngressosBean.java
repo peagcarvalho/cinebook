@@ -1,5 +1,6 @@
 package br.edu.ifpb.cinebook.beans;
 
+import java.io.File;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,8 +14,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import br.edu.ifpb.cinebook.modelo.Cinema;
+import br.edu.ifpb.cinebook.modelo.GeradorDeVoucher;
 import br.edu.ifpb.cinebook.modelo.Ingresso;
 import br.edu.ifpb.cinebook.modelo.Reserva;
 import br.edu.ifpb.cinebook.modelo.Sessao;
@@ -133,6 +134,30 @@ public class ReservaIngressosBean implements Serializable {
 										 cinema.getEndereco().getEstado();
 			
 			reserva.getSessao().getCinema().setEnderecoConcatenado(enderecoConcatenado);
+		}
+	}
+	
+	public void baixarVoucherDoIngresso(Ingresso ingresso) {
+		Cinema cinema = ingresso.getReserva().getSessao().getCinema();
+		
+		if (sessao != null && cinema != null) {
+			
+			String enderecoConcatenado = cinema.getEndereco().getLogradouro() + ", " + cinema.getEndereco().getNumero() + ". " + 
+										 cinema.getEndereco().getBairro() + " - " + cinema.getEndereco().getCidade() + ", " + 
+										 cinema.getEndereco().getEstado();
+			
+			ingresso.getReserva().getSessao().getCinema().setEnderecoConcatenado(enderecoConcatenado);
+		}
+		
+		GeradorDeVoucher gerador = new GeradorDeVoucher();
+		
+		if (ingresso.getVoucher() == null) {
+			File arquivo = gerador.gerarVoucherDeIngresso(ingresso);
+			ingresso.setVoucher(gerador.transformarArquivoEmBytes(arquivo));
+			
+			reservaServico.atualizarIngresso(ingresso);
+		} else {
+			gerador.transformarBytesEmArquivo(ingresso.getVoucher());
 		}
 	}
 

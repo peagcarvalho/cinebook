@@ -61,9 +61,6 @@
 	
 	<h:dataTable id="ingressosTable" value="#{reservaIngressosBean.reserva.ingressos}" var="ingresso">
 		<h:column>
-			<h:outputLabel value="#{ingresso.id}" />
-		</h:column>
-		<h:column>
 			<h:outputLabel style="font-weight:bold" value="Nome completo: " />
 			<h:outputLabel value="#{ingresso.nomeCompleto}" />
 			<br/>
@@ -82,8 +79,9 @@
 			<h:outputLabel value="#{ingresso.valor}" />
 		</h:column>
 		<h:column>
-			<h:link id="linkBaixar" value="Baixar voucher" outcome="paginaInicial">
-			</h:link>
+			<h:form id="form">
+				<h:commandButton id="botaoBaixar" value="Baixar voucher" action="#{reservaIngressosBean.baixarVoucherDoIngresso(ingresso)}" />
+			</h:form>
 		</h:column>
 	</h:dataTable>
 

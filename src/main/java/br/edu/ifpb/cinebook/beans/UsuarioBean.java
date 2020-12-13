@@ -27,6 +27,7 @@ public class UsuarioBean implements Serializable{
 	private List<String> papeis;
 	
 	private Integer cinemaId;
+	private List<Cinema> cinemas;
 	
 	@EJB
 	private UsuarioServico servico;
@@ -45,6 +46,7 @@ public class UsuarioBean implements Serializable{
 	public void init() {
 		funcionarios = new ArrayList<Usuario>();
 		papeis = new ArrayList<String>();
+		setCinemas(cinemaServico.listarTodosCinemas());
 	}
 	
 	public String cadastrarCliente() {
@@ -164,6 +166,14 @@ public class UsuarioBean implements Serializable{
 
 	public void setCinemaId(Integer cinemaId) {
 		this.cinemaId = cinemaId;
+	}
+
+	public List<Cinema> getCinemas() {
+		return cinemas;
+	}
+
+	public void setCinemas(List<Cinema> cinemas) {
+		this.cinemas = cinemas;
 	}
 
 }

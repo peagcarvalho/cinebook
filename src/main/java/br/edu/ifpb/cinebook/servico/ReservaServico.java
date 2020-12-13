@@ -8,10 +8,8 @@ import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-
 import br.edu.ifpb.cinebook.modelo.Ingresso;
 import br.edu.ifpb.cinebook.modelo.Reserva;
-import br.edu.ifpb.cinebook.modelo.Sessao;
 
 @DeclareRoles({"ADMINISTRADOR", "CLIENTE", "OPERADOR", "GERENTE"})
 @Stateful
@@ -48,6 +46,11 @@ public class ReservaServico {
 	}
 	
 	@RolesAllowed("CLIENTE")
+	public void atualizarIngresso(Ingresso ingresso) {
+		manager.merge(ingresso);
+	}
+	
+	@RolesAllowed("CLIENTE")
 	public List<Reserva> listarTodasReservas() {
 	    System.out.println("[INFO] Consultando todas as reservas");
 	    
@@ -58,7 +61,7 @@ public class ReservaServico {
 	public List<Reserva> listarReservasDoCliente(String email) {
 	    System.out.println("[INFO] Consultando todas as reservas de um cliente");
 	    
-	    return manager.createQuery("select r from Reserva r inner join fetch r.ingressos where r.cliente = '" + email + "' group by r.id", Reserva.class).getResultList();
+	    return manager.createQuery("select r from Reserva r inner join fetch r.ingressos where r.cliente = '" + email + "' group by r.id order by r.id desc", Reserva.class).getResultList();
 	}
 	
 	@RolesAllowed("CLIENTE")

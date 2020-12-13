@@ -27,7 +27,7 @@
 	
 		<h:outputLabel value="Data de Exibição:" />
 		<h:inputText id="data_exib" value="#{sessaoBean.sessao.dataExibicao}" required="true">
-			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Brasilia"/>
+			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
 		</h:inputText>
 		<h:message for="data_exib"/>
 		
@@ -38,15 +38,19 @@
 		<h:message for="hora_exib"/>
 		
 		<h:outputLabel value="Quantidade de Ingressos"/>
-		<h:inputText id="quantMaxIngressos" value="#{sessaoBean.quantMaxIngressos}" required="true">
+		<h:inputText id="quantMaxIngressos" value="#{sessaoBean.sessao.quantMaxIngressos}" required="true">
+			<f:convertNumber minIntegerDigits="1" maxIntegerDigits="3"/>
 		</h:inputText>
 		<h:message for="quantMaxIngressos"/>
 		
 		<h:outputLabel value="Legendado" />
-		<h:selectBooleanCheckbox id="cbLegendado"  value="#{sessaoBean.legendado}" />
+		<h:selectBooleanCheckbox id="cbLegendado"  value="#{sessaoBean.sessao.legendado}" />
 		<br/>
 		<h:outputLabel value="3D" />
-		<h:selectBooleanCheckbox id="cb3d" value="#{sessaoBean.tresDimensoes}" />
+		<h:selectBooleanCheckbox id="cb3d" value="#{sessaoBean.sessao.tresDimensoes}" />
+		<br/>
+		<h:outputLabel value="Esgotada" />
+		<h:selectBooleanCheckbox id="cbEsgotada" value="#{sessaoBean.sessao.esgotada}" />
 		
 	</h:panelGrid>
 	
