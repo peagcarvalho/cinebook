@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/template/template.xhtml" 
+<ui:composition template="/WEB-INF/template/bootstrap_template.xhtml" 
 				xmlns="http://www.w3.org/1999/xhtml" 
 				xmlns:f="http://xmlns.jcp.org/jsf/core" 
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -7,19 +7,21 @@
 
 <ui:param name="title" value="Painel de Administração - Cinebook" />
 
-<ui:define name="titulo">Painel de Administração</ui:define>
-
 <ui:define name="conteudo">
 
-<br/>
-<p><h:link outcome="cadastroFilme">Cadastrar Filme</h:link></p>
-<p><h:link outcome="listaDeFilmes">Lista de Filmes</h:link></p>
+	<div class="text-center">
+		<h1 class="mt-3 mb-5">PAINEL DO ADMINISTRADOR</h1>
+	
+		<h3><h:link outcome="cadastroFilme">Cadastrar Filme</h:link></h3>
+		<h3><h:link outcome="listaDeFilmes">Lista de Filmes</h:link></h3>
+		
+		<br/>
+		<h3><h:link outcome="cadastroCinema">Cadastrar Cinema</h:link></h3>
+		<h3><h:link outcome="listaDeCinemas">Lista de Cinemas</h:link></h3>
+		<br/>
+		<h3><h:link outcome="/gerente/cadastroFuncionario">Cadastrar Funcionário</h:link></h3>
+		<h3><h:link outcome="/gerente/listaDeFuncionarios">Lista de Gerentes</h:link></h3>
+	</div>
 
-<br/>
-<p><h:link outcome="cadastroCinema">Cadastrar Cinema</h:link></p>
-<p><h:link outcome="listaDeCinemas">Lista de Cinemas</h:link></p>
-<br/>
-<p><h:link outcome="/gerente/cadastroFuncionario">Cadastrar Funcionário</h:link></p>
-<p><h:link outcome="/gerente/listaDeFuncionarios">Lista de Gerentes</h:link></p>
 </ui:define>
 </ui:composition>

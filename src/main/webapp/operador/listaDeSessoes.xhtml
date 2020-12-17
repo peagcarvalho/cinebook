@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/template/template.xhtml" 
+<ui:composition template="/WEB-INF/template/bootstrap_template.xhtml" 
 				xmlns="http://www.w3.org/1999/xhtml" 
 				xmlns:f="http://xmlns.jcp.org/jsf/core" 
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -15,36 +15,40 @@
 		<f:viewAction action="#{sessaoBean.recuperarCinemaId}"></f:viewAction>
 		<f:viewAction action="#{sessaoBean.recuperarSessoesDoCinema}"></f:viewAction>
 	</f:metadata>
+	
+	<div class="mt-3 mr-3 text-center">
+		<h1 class="pb-4">SESSÕES CADASTRADAS</h1>
 
-	<h:dataTable id="sessoes" value="#{sessaoBean.sessoes}" var="sessao">
-		<h:column>
-			<f:facet name="header">Informações:</f:facet>
-			
-			<h:outputLabel value="Filme: #{sessao.filme.titulo}"/>
-			<br/>
-			
-			<h:outputLabel value="Sala: #{sessao.sala}"/>
-			<br/>
-			
-			<h:outputLabel value="Data de Exibição: " />
-			<h:outputLabel value="#{sessao.dataExibicao}" >
-				<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
-			</h:outputLabel>
-			<br/>
-			
-			<h:outputLabel value="Hora de Exibição: " />
-			<h:outputLabel value="#{sessao.horaExibicao}" >
-				<f:convertDateTime type="time" pattern="HH:mm" locale="pt-BR" timeZone="America/Brasilia"/>
-			</h:outputLabel>
-			<br/>
-			
-		</h:column>
-		<h:column>
-			<h:link value="Editar" outcome="editarSessao">
-				<f:param name="id" value="#{sessao.id}"></f:param>
-			</h:link>
-		</h:column>
-	</h:dataTable>
+		<h:dataTable id="sessoes" value="#{sessaoBean.sessoes}" var="sessao">
+			<h:column>
+				<f:facet name="header">Informações:</f:facet>
+				
+				<h:outputLabel value="Filme: #{sessao.filme.titulo}"/>
+				<br/>
+				
+				<h:outputLabel value="Sala: #{sessao.sala}"/>
+				<br/>
+				
+				<h:outputLabel value="Data de Exibição: " />
+				<h:outputLabel value="#{sessao.dataExibicao}" >
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
+				</h:outputLabel>
+				<br/>
+				
+				<h:outputLabel value="Hora de Exibição: " />
+				<h:outputLabel value="#{sessao.horaExibicao}" >
+					<f:convertDateTime type="time" pattern="HH:mm" locale="pt-BR" timeZone="America/Brasilia"/>
+				</h:outputLabel>
+				<br/>
+				
+			</h:column>
+			<h:column>
+				<h:link value="Editar" outcome="editarSessao">
+					<f:param name="id" value="#{sessao.id}"></f:param>
+				</h:link>
+			</h:column>
+		</h:dataTable>
+	</div>
 
 </ui:define>
 </ui:composition>

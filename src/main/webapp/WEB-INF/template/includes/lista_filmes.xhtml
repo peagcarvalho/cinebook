@@ -5,21 +5,25 @@
 				xmlns:jsf="http://xmlns.jcp.org/jsf"
 				xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-	<h3>Filmes em Cartaz</h3>
-	
-	<table border="1">
-	<tr>
-		<ui:repeat var="filme" value="#{filmeBean.filmes}">
-			<td>
-				<h:graphicImage id="capa" value="#{filme.capa}" width="230" height="310"/>
-				
-				<br/>
-				<h:link value="#{filme.titulo}" outcome="detalhesFilme">
-					<f:param name="id" value="#{filme.id}"></f:param>			
-				</h:link>
-			</td>
-		</ui:repeat>
-	</tr>
-	</table>
+	<div class="ml-3 mt-4 mr-3 mb-3">
+		<h3 class="ml-2 mb-4">Filmes em Cartaz</h3>
+		
+		<table>
+		<tr>
+			<ui:repeat var="filme" value="#{filmeBean.filmes}">
+				<td>
+					<div class="ml-2 mr-2" style="border: 1px solid #080A0C; word-wrap: break-word">
+						<h:link outcome="detalhesFilme">
+							<h:graphicImage id="capa" value="#{filme.capa}" width="230" height="310"/>
+							<f:param name="id" value="#{filme.id}"></f:param>			
+						</h:link>
+						
+						<h6 class="text-center">#{filme.titulo}</h6>
+					</div>
+				</td>
+			</ui:repeat>
+		</tr>
+		</table>
+	</div>
 
 </ui:composition>

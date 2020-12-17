@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/template/template.xhtml" 
+<ui:composition template="/WEB-INF/template/bootstrap_template.xhtml" 
 				xmlns="http://www.w3.org/1999/xhtml" 
 				xmlns:f="http://xmlns.jcp.org/jsf/core" 
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -6,8 +6,6 @@
 				xmlns:jsf="http://xmlns.jcp.org/jsf">
 
 <ui:param name="title" value="#{filmeBean.filme.titulo} - Cinebook" />
-
-<ui:define name="titulo">DETALHES DO FILME</ui:define>
 
 <ui:define name="conteudo">
 
@@ -20,28 +18,37 @@
 		<f:viewAction action="#{filmeBean.concatenarEnderecoCinema()}" />
 	</f:metadata>
 	
-	<h:graphicImage value="#{filmeBean.filme.capa}" width="230" height="310"/>]
-
-	<h2>#{filmeBean.filme.titulo}</h2>
-	
-	<h:outputLabel style="font-weight: bold" value="Gêneros: "/>
-	<h:outputLabel value="#{filmeBean.generoConcatenado}" />
-	<br/>
-	
-	<h:outputLabel style="font-weight: bold" value="Ano: "/>
-	<h:outputLabel value="#{filmeBean.filme.anoLancamento}">
-		<f:convertDateTime pattern="yyyy" locale="pt-BR" timeZone="America/Brasilia"/>
-	</h:outputLabel>
-	<br/>
-	
-	<h:outputLabel style="font-weight: bold" value="Classificação: "/>
-	<h:outputLabel value="#{filmeBean.filme.classificacao}" />
-	<br/>
-	
-	<h:outputLabel style="font-weight: bold" value="Sinopse: "/>
-	<h:outputLabel value="#{filmeBean.filme.sinopse}" />
-	
-	<ui:include src="/WEB-INF/template/includes/sessoesDoFilme.xhtml"/>
+	<div class="ml-5 mt-4 mr-5">
+		
+		<div>
+			<div class="d-inline-block" style="vertical-align:top">
+				<h:graphicImage value="#{filmeBean.filme.capa}" width="230" height="310"/>
+			</div>
+			
+			<div class="ml-2 pt-0 d-inline-block" style="border: 1px solid #000000; word-wrap:break-word; width:70%">
+				<h2 class="mt-2 mb-2">#{filmeBean.filme.titulo}</h2>
+				
+				<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Gêneros: "/>
+				<h:outputLabel value="#{filmeBean.generoConcatenado}" />
+				<br/>
+				
+				<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Ano: "/>
+				<h:outputLabel value="#{filmeBean.filme.anoLancamento}">
+					<f:convertDateTime pattern="yyyy" locale="pt-BR" timeZone="America/Brasilia"/>
+				</h:outputLabel>
+				<br/>
+				
+				<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Classificação: "/>
+				<h:outputLabel value="#{filmeBean.filme.classificacao}" />
+				<br/>
+				
+				<h:outputLabel style="font-weight: bold;" value="Sinopse: "/>
+				<h:outputLabel value="#{filmeBean.filme.sinopse}" />
+			</div>
+		</div>
+		
+		<ui:include src="/WEB-INF/template/includes/sessoesDoFilme.xhtml"/>
+	</div>
 
 </ui:define>
 </ui:composition>

@@ -3,60 +3,60 @@
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:jsf="http://xmlns.jcp.org/jsf">
-
-	<h:messages id="msg"/>
-	<h:panelGrid columns="3">
-		<h:outputLabel value="Título:" />
-		<h:inputText id="titulo" value="#{filmeBean.filme.titulo}" required="true"/>
-		<h:message for="titulo"/>
-		
-		<h:outputLabel value="Link da Capa:"/>
-		<h:inputText id="link_capa" value="#{filmeBean.filme.capa}" required="true"/>
-		<h:message for="link_capa"/>
-		
-		<h:outputLabel value="Sinopse:"/>
-		<h:inputTextarea id="sinopse" value="#{filmeBean.filme.sinopse}" required="true"/>
-		<h:message for="sinopse"/>
-		
-		<h:outputLabel value="Ano:"/>
-		<h:inputText id="ano_lanc" value="#{filmeBean.filme.anoLancamento}" required="true">
-			<f:convertDateTime pattern="yyyy" locale="pt-BR" timeZone="America/Brasilia"/>
-		</h:inputText>
-		<h:message for="ano_lanc"/>
-		
-	</h:panelGrid>
+				
+	<div class="mt-3 mb-3" style="margin-left:35%; margin-right:10%">
+		<h:messages id="msg"/>
+		<div id="containerFormFilme" class="d-inline-block" style="width:55%">
+			<div class="mb-3">
+			 	<label for="inputTitulo">Título</label>
+				<h:inputText id="inputTitulo" class="form-control" placeholder="Título" value="#{filmeBean.filme.titulo}" required="true"/>
+				<h:message for="inputTitulo"/>
+			</div>
+			
+			<div class="mb-3">
+				<label for="inputLinkCapa">Link da Capa</label>
+				<h:inputText id="inputLinkCapa" class="form-control" placeholder="Capa" value="#{filmeBean.filme.capa}" required="true"/>
+				<h:message for="inputLinkCapa"/>
+			</div>
+			
+			<div class="mb-3">
+			 	<label for="inputSinopse">Sinopse</label>
+				<h:inputTextarea id="inputSinopse" class="form-control" placeholder="Sinopse" value="#{filmeBean.filme.sinopse}" required="true"/>
+				<h:message for="inputSinopse"/>
+			</div>
+			
+			<div class="mb-3">
+			 	<label for="inputAno">Ano</label>
+				<h:inputText id="inputAno" class="form-control" placeholder="Ano" value="#{filmeBean.filme.anoLancamento}" required="true">
+					<f:convertDateTime pattern="yyyy" locale="pt-BR" timeZone="America/Brasilia"/>
+				</h:inputText>
+				<h:message for="inputAno"/>
+			</div>
+			
+			<label for="inputClassificacao">Classificação</label>
+			
+			<h:selectOneMenu class="browser-default custom-select mb-3" value="#{filmeBean.filme.classificacao}" id="classMenu">
+				<f:selectItem itemValue="Livre"/>
+				<f:selectItem itemValue="10"/>
+				<f:selectItem itemValue="12"/>
+				<f:selectItem itemValue="14"/>
+				<f:selectItem itemValue="16"/>
+				<f:selectItem itemValue="18"/>
+			</h:selectOneMenu>
+			
+			<label for="inputAno">Gênero</label>
+			<h:inputText id="generoMenu" class="form-control" placeholder="Gênero" value="#{filmeBean.genero}"/>
 	
-	<fieldset>
-		<legend>Classificação Indicativa</legend>
-		
-		<h:outputLabel value="Classificação:" />
-		<h:selectOneMenu value="#{filmeBean.filme.classificacao}" id="classMenu">
-			<f:selectItem itemValue="Livre"/>
-			<f:selectItem itemValue="10"/>
-			<f:selectItem itemValue="12"/>
-			<f:selectItem itemValue="14"/>
-			<f:selectItem itemValue="16"/>
-			<f:selectItem itemValue="18"/>
-		</h:selectOneMenu>
-	
-	</fieldset>
-	
-	<fieldset>
-		<legend>Gêneros</legend>
-		
-		<h:outputLabel value="Gênero:" />
-		<h:inputText id="generoMenu" value="#{filmeBean.genero}"/>
-		
-		<h:commandButton id="botaoAdicionarGenero" action="#{filmeBean.adicionarGenero}" value="Adicionar">
-			<f:ajax execute="generoMenu" render="generosFilmeHTML generoMenu msg"/>
-		</h:commandButton>
-		<br/>
-		<ol jsf:id="generosFilmeHTML">
-			<ui:repeat var="genero" value="#{filmeBean.generos}">
-				<li>#{genero}</li>
-			</ui:repeat>
-		</ol>
-	
-	</fieldset>
+			<h:commandButton class="btn btn-lg btn-danger btn-block mt-2" id="botaoAdicionarGenero" action="#{filmeBean.adicionarGenero}" value="Adicionar">
+				<f:ajax execute="generoMenu" render="generosFilmeHTML generoMenu msg"/>
+			</h:commandButton>
+			<br/>
+			<ol jsf:id="generosFilmeHTML">
+				<ui:repeat var="genero" value="#{filmeBean.generos}">
+					<li>#{genero}</li>
+				</ui:repeat>
+			</ol>
+		</div>
+	</div>
 
 </ui:composition>

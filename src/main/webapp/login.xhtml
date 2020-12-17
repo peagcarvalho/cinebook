@@ -4,30 +4,33 @@
 	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	  xmlns:jsf="http://xmlns.jcp.org/jsf">
 
-	<ui:composition template="WEB-INF/template/template.xhtml">
+	<ui:composition template="/WEB-INF/template/forms_template.xhtml">
 	
 	<ui:param name="title" value="Entre com sua conta - Cinebook" />
 	
-	<ui:define name="titulo">ENTRE COM SUA CONTA</ui:define>
-	
 	<ui:define name="conteudo">
 	
-		<h:form id="form">
-			<h:messages id="msg"/>
-		
-			<h:panelGrid columns="2">
-			<h:outputLabel value="E-mail:" />
-			<h:inputText id="login" label="email" value="#{loginBean.usuario.email}" required="true">
-			</h:inputText>
-	
-			<h:outputLabel value="Senha:" />
-			<h:inputSecret id="senha" label="senha" value="#{loginBean.usuario.senha}" required="true">
-			</h:inputSecret>
-		
-			<h:commandButton id="botaoLogar" action="#{loginBean.login}" value="Entrar"/>
-		
-			</h:panelGrid>
+		<h:form id="form" class="form-signin">
+			<div class="text-center mb-4">
+			  <h:graphicImage class="mb-4" name="/images/icone-cinebook.png" width="72" height="72" alt="icone_cinebook"/>
+			  <h1 class="h3 mb-3 font-weight-normal">Cinebook</h1>
+			  <p>Entre em sua conta para começar já a comprar ingressos.</p>
+			</div>
+			
+			<div class="form-label-group">
+			  <h:inputText type="email" id="inputEmail" class="form-control" placeholder="Endereço de email" value="#{loginBean.usuario.email}" required="true"/>
+			  <label for="inputEmail">Endereço de email</label>
+			</div>
+			
+			<div class="form-label-group">
+			  <h:inputSecret type="password" id="inputPassword" class="form-control" placeholder="Senha" required="true" value="#{loginBean.usuario.senha}" />
+			  <label for="inputPassword">Senha</label>
+			</div>
+			
+			<h:commandButton class="btn btn-lg btn-danger btn-block" type="submit" action="#{loginBean.login}" value="Entrar"></h:commandButton>
 		</h:form>
+		
+		<p class="mt-3 mb-0 text-muted text-center">Cinebook Ⓒ, 2020.</p>
 	
 	</ui:define>
 	

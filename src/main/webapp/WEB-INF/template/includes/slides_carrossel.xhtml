@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	
+<ui:composition>
+
+	<div id="cenasCarrossel" class="carousel slide" data-ride="carousel">
+		
+		<ol class="carousel-indicators">
+			<li data-target="#cenasCarrossel" data-slide-to="0" class="active"></li>
+			<li data-target="#cenasCarrossel" data-slide-to="1"></li>
+			<li data-target="#cenasCarrossel" data-slide-to="2"></li>
+		</ol>
+		
+		<div class="carousel-inner">
+			
+			<div class="carousel-item active">
+				<h:graphicImage id="imgSlide1" value="resources/images/cena-slide1.png" class="img-fluid d-block" />
+				
+				<div class="carousel-caption">
+					<h1 style="font-size: 70px">Cinebook</h1>
+					<p style="font-size: 20px">Comprar ingressos nunca foi tão fácil!</p>
+				</div>
+			</div>
+			
+			<div class="carousel-item">
+			
+				<h:graphicImage id="imgSlide2" value="resources/images/cena-slide2.png" class="img-fluid d-block" />
+				
+				<div class="carousel-caption">
+				
+					<h1 style="font-size: 70px">Cinebook</h1>
+					<p style="font-size: 20px">Procure já por um filme no cinema mais próximo de você!</p>
+					
+				</div>
+			</div>
+			
+			<div class="carousel-item">
+				<h:graphicImage id="imgSlide3" value="resources/images/cena-slide3.png" class="img-fluid d-block" />
+				
+				<div class="carousel-caption">
+				
+					<h1 style="font-size: 70px">Cinebook</h1>
+					<p style="font-size: 20px">Não enfrente filas na bilheteria!</p>
+					
+				</div>
+			</div>
+		
+		</div>
+		
+		<a class="carousel-control-prev" href="#cenasCarrossel" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon"></span>
+			<span class="sr-only">Anterior</span>
+		</a>
+		
+		<a class="carousel-control-next" href="#cenasCarrossel" role="button" data-slide="next">
+			<span class="carousel-control-next-icon"></span>
+			<span class="sr-only">Próximo</span>
+		</a>
+	
+	</div>
+
+</ui:composition>
+</html>

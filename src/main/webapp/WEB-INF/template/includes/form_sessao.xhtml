@@ -5,53 +5,57 @@
 				xmlns:jsf="http://xmlns.jcp.org/jsf"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-	<h:messages id="msg"/>
-	<fieldset>
-		<legend>Selecione o filme</legend>
+	<div class="mt-3 mb-3" style="margin-left:35%; margin-right:10%">
+		<h:messages id="msg"/>
+		<div id="containerFormFilme" class="d-inline-block" style="width:55%">
 		
-		<h:outputLabel value="Filme:" />
-		<h:selectOneMenu value="#{sessaoBean.filmeId}" id="filmeMenu">
-			<f:selectItems value="#{sessaoBean.filmes}" var="filme"
-				itemLabel="#{filme.titulo}" itemValue="#{filme.id}">
-			</f:selectItems>
-		</h:selectOneMenu>
-		<br/>
-	
-	</fieldset>
-	
-	<h:panelGrid columns="3">
-		<h:outputLabel value="Sala:"/>
-		<h:inputText id="sala" value="#{sessaoBean.sessao.sala}" required="true">
-		</h:inputText>
-		<h:message for="sala"/>
-	
-		<h:outputLabel value="Data de Exibição:" />
-		<h:inputText id="data_exib" value="#{sessaoBean.sessao.dataExibicao}" required="true">
-			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
-		</h:inputText>
-		<h:message for="data_exib"/>
+			<label for="filmeMenu">Filme</label>
+			<h:selectOneMenu class="browser-default custom-select mb-3" value="#{sessaoBean.filmeId}" id="filmeMenu">
+				<f:selectItems value="#{sessaoBean.filmes}" var="filme"
+					itemLabel="#{filme.titulo}" itemValue="#{filme.id}">
+				</f:selectItems>
+			</h:selectOneMenu>
+			
+			<div class="mb-3">
+			 	<label for="inputSala">Sala</label>
+				<h:inputText id="inputSala" class="form-control" placeholder="Sala" value="#{sessaoBean.sessao.sala}" required="true"/>
+				<h:message for="inputSala"/>
+			</div>
+			
+			<div class="mb-3">
+				<label for="inputDataExib">Data de Exibição</label>
+				<h:inputText id="inputDataExib" class="form-control" placeholder="Data de Exibição" value="#{sessaoBean.sessao.dataExibicao}" required="true">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
+				</h:inputText>
+				<h:message for="inputDataExib"/>
+			</div>
+			
+			<div class="mb-3">
+			 	<label for="inputHoraExib">Hora de Exibição</label>
+				<h:inputText id="inputHoraExib" class="form-control" placeholder="Hora de Exibição" value="#{sessaoBean.sessao.horaExibicao}" required="true">
+					<f:convertDateTime type="time" pattern="HH:mm" locale="pt-BR" timeZone="America/Brasilia"/>
+				</h:inputText>
+				<h:message for="inputHoraExib"/>
+			</div>
+			
+			<div class="mb-3">
+			 	<label for="inputQuantIngressos">Quantidade de Ingressos</label>
+				<h:inputText id="inputQuantIngressos" class="form-control" placeholder="Quantidade de Ingressos" value="#{sessaoBean.sessao.quantMaxIngressos}" required="true">
+					<f:convertNumber minIntegerDigits="1" maxIntegerDigits="3"/>
+				</h:inputText>
+				<h:message for="inputQuantIngressos"/>
+			</div>
 		
-		<h:outputLabel value="Hora de Exibição:"/>
-		<h:inputText id="hora_exib" value="#{sessaoBean.sessao.horaExibicao}" required="true">
-			<f:convertDateTime type="time" pattern="HH:mm" locale="pt-BR" timeZone="America/Brasilia"/>
-		</h:inputText>
-		<h:message for="hora_exib"/>
-		
-		<h:outputLabel value="Quantidade de Ingressos"/>
-		<h:inputText id="quantMaxIngressos" value="#{sessaoBean.sessao.quantMaxIngressos}" required="true">
-			<f:convertNumber minIntegerDigits="1" maxIntegerDigits="3"/>
-		</h:inputText>
-		<h:message for="quantMaxIngressos"/>
-		
-		<h:outputLabel value="Legendado" />
-		<h:selectBooleanCheckbox id="cbLegendado"  value="#{sessaoBean.sessao.legendado}" />
-		<br/>
-		<h:outputLabel value="3D" />
-		<h:selectBooleanCheckbox id="cb3d" value="#{sessaoBean.sessao.tresDimensoes}" />
-		<br/>
-		<h:outputLabel value="Esgotada" />
-		<h:selectBooleanCheckbox id="cbEsgotada" value="#{sessaoBean.sessao.esgotada}" />
-		
-	</h:panelGrid>
+			<label for="inputQuantIngressos">Legendado</label>
+			<h:selectBooleanCheckbox id="cbLegendado"  value="#{sessaoBean.sessao.legendado}" />
+			<br/>
+			<label for="inputQuantIngressos">3D</label>
+			<h:selectBooleanCheckbox id="cb3d" value="#{sessaoBean.sessao.tresDimensoes}" />
+			<br/>
+			<label for="inputQuantIngressos">Esgotada</label>
+			<h:selectBooleanCheckbox id="cbEsgotada" value="#{sessaoBean.sessao.esgotada}" />
+			
+		</div>
+	</div>
 	
 </ui:composition>

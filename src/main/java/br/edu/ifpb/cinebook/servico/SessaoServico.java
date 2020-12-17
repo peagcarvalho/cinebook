@@ -51,7 +51,7 @@ public class SessaoServico {
 	public List<Sessao> filtrarSessoesPorFilme(Filme filme) {
 		System.out.println("[INFO] Consultando todas as sessoes de um filme");
 	    
-	    TypedQuery<Sessao> query = manager.createQuery("select s from Sessao s where filme_id = :filmeId and esgotada like 0", Sessao.class);
+	    TypedQuery<Sessao> query = manager.createQuery("select s from Sessao s where filme_id = :filmeId and esgotada like 0 order by dataExibicao desc", Sessao.class);
 	    query.setParameter("filmeId", filme.getId());
 
 	    List<Sessao> sessoes = query.getResultList();
@@ -62,7 +62,7 @@ public class SessaoServico {
 	public List<Sessao> filtrarSessoesPorCinema(Integer cinemaId) {
 		System.out.println("[INFO] Consultando todas as sessoes de um cinema");
 	    
-	    TypedQuery<Sessao> query = manager.createQuery("select s from Sessao s where cinema_id = :cinemaId", Sessao.class);
+	    TypedQuery<Sessao> query = manager.createQuery("select s from Sessao s where cinema_id = :cinemaId order by dataExibicao desc", Sessao.class);
 	    query.setParameter("cinemaId", cinemaId);
 
 	    List<Sessao> sessoes = query.getResultList();

@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/template/template.xhtml" 
+<ui:composition template="/WEB-INF/template/bootstrap_template.xhtml" 
 				xmlns="http://www.w3.org/1999/xhtml" 
 				xmlns:f="http://xmlns.jcp.org/jsf/core" 
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -7,14 +7,14 @@
 
 <ui:param name="title" value="Página Inicial - Cinebook" />
 
-<ui:define name="titulo">INICIO</ui:define>
-
 <ui:define name="conteudo">
 
 	<f:metadata>
 		<f:viewAction action="#{filmeBean.buscarFilmesEmCartaz()}"></f:viewAction>
 	</f:metadata>
 
+	<ui:include src="/WEB-INF/template/includes/slides_carrossel.xhtml"/>
+	
 	<ui:include src="/WEB-INF/template/includes/lista_filmes.xhtml"/>
 
 </ui:define>

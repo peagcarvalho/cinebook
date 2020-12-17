@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/template/template.xhtml" 
+<ui:composition template="/WEB-INF/template/bootstrap_template.xhtml" 
 				xmlns="http://www.w3.org/1999/xhtml" 
 				xmlns:f="http://xmlns.jcp.org/jsf/core" 
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -7,8 +7,6 @@
 
 <ui:param name="title" value="Criar uma sessão - Cinebook" />
 
-<ui:define name="titulo">CRIAR SESSÃO</ui:define>
-
 <ui:define name="conteudo">
 
 	<f:metadata>
@@ -16,9 +14,11 @@
 	</f:metadata>
 
 	<h:form id="form">
+		<h2 class="text-center mt-3">CRIAR SESSÃO</h2>
+	
 		<ui:include src="/WEB-INF/template/includes/form_sessao.xhtml"/>
 	
-		<h:commandButton id="botaoCadastrar" action="#{sessaoBean.cadastrar}" value="Cadastrar"/>
+		<h:commandButton class="btn btn-lg btn-danger btn-block" style="width:30%; margin-left:35%; margin-right:35%" type="submit" id="botaoCadastrar" action="#{sessaoBean.cadastrar}" value="Cadastrar"/>
 	</h:form>
 
 </ui:define>

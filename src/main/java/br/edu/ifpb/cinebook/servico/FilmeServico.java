@@ -97,11 +97,9 @@ public class FilmeServico {
 		for(int contador = 0; contador < filmes.size(); contador++) {
 			Filme filme = filmes.get(contador);
 			
-			System.out.println(filme.getTitulo());
+			String titulo = filme.getTitulo().toLowerCase();
 			
-			String titulo = filme.getTitulo();
-			
-			if (titulo.contains(string)) {
+			if (titulo.contains(string.toLowerCase())) {
 				filmesResultado.add(filme);
 			}
 		}

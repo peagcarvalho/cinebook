@@ -1,13 +1,11 @@
-<ui:composition template="/WEB-INF/template/template.xhtml" 
+<ui:composition template="/WEB-INF/template/bootstrap_template.xhtml" 
 				xmlns="http://www.w3.org/1999/xhtml" 
 				xmlns:f="http://xmlns.jcp.org/jsf/core" 
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:jsf="http://xmlns.jcp.org/jsf">
 
-<ui:param name="title" value="Detalhes da reserva - Cinebook" />
-
-<ui:define name="titulo">DETALHES DA RESERVA</ui:define>
+<ui:param name="title" value="Detalhes da Reserva - Cinebook" />
 
 <ui:define name="conteudo">
 
@@ -18,72 +16,87 @@
 		<f:viewAction action="#{reservaIngressosBean.concatenarEnderecoCinema()}"></f:viewAction>
 	</f:metadata>
 	
-	<h:graphicImage value="#{reservaIngressosBean.reserva.sessao.filme.capa}" width="150" height="220"/>
-	<br/>
-
-	<h2>#{reservaIngressosBean.reserva.sessao.filme.titulo}</h2>
+	<div class="ml-5 mt-3 mr-5">
+		<h2 class="pb-3 text-center">DETALHES DA RESERVA n° #{reservaIngressosBean.reserva.id}</h2>
+		
+		<div>
+			<h2 class="text-center mb-3">#{reservaIngressosBean.reserva.sessao.filme.titulo}</h2>
+		
+			<h:graphicImage class="d-inline-block" value="#{reservaIngressosBean.reserva.sessao.filme.capa}" width="200" height="280"/>
+		
+			<div class="d-inline-block pt-0 mt-0 ml-3">
+				<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Data da Compra: "/>
+				<h:outputLabel value="#{reservaIngressosBean.reserva.dataEmissao}">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
+				</h:outputLabel>
+				<br/>
+				
+				<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Cinema: "/>
+				<h:outputLabel value="#{reservaIngressosBean.reserva.sessao.cinema.nome}" />
+				<br/>
+				
+				<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Endereço: "/>
+				<h:outputLabel value="#{reservaIngressosBean.reserva.sessao.cinema.enderecoConcatenado}" />
+				<br/>
+				
+				<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Data de Exibição: "/>
+				<h:outputLabel value="#{reservaIngressosBean.reserva.sessao.dataExibicao}">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
+				</h:outputLabel>
+				<br/>
+				
+				<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Hora de Exibição: "/>
+				<h:outputLabel value="#{reservaIngressosBean.reserva.sessao.horaExibicao}">
+					<f:convertDateTime type="time" pattern="HH:mm" locale="pt-BR" timeZone="America/Brasilia"/>
+				</h:outputLabel>
+				<br/>
+			</div>
+		</div>
+		
+		<br/>
+		<h:outputLabel value="#{reservaIngressosBean.reserva.quantIngressos} ingresso(s) comprado(s)" />
+		<br/>
+		
+		<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Valor Total: "/>
+		<h:outputLabel value="#{reservaIngressosBean.reserva.valorTotal}" />
+		<br/>
+		
+		<h2 class="mt-4 pb-3">Ingressos</h2>
+		
+		<div style="margin-right:20%">
+		<ui:repeat var="ingresso" value="#{reservaIngressosBean.reserva.ingressos}">
+			<div class="row mb-3">
+			    <div class="col-md-4 themed-grid-col">
+					<h:outputLabel style="font-weight:bold; margin-right: 8px" value="Nome completo: " />
+					<h:outputLabel value="#{ingresso.nomeCompleto}" />
+					<br/>
+					
+					<h:outputLabel style="font-weight:bold; margin-right: 8px" value="Data de Nascimento: " />
+					<h:outputLabel value="#{ingresso.dataNascimento}" >
+						<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
+					</h:outputLabel>
+				</div>
+				
+				
+			    <div class="col-md-4 themed-grid-col">
+					<h:outputLabel style="font-weight:bold; margin-right: 8px" value="Tipo: " />
+					<h:outputLabel value="#{ingresso.tipo}" />
+					<br/>
+					
+					<h:outputLabel style="font-weight:bold; margin-right: 8px" value="Valor: " />
+					<h:outputLabel value="#{ingresso.valor}" />
+				</div>
+				
+			    <div class="col-md-4 themed-grid-col">
+			    	<h:form id="form">
+						<h:commandButton class="btn btn-lg btn-danger btn-block" type="submit" id="botaoBaixar" value="Baixar voucher" action="#{reservaIngressosBean.baixarVoucherDoIngresso(ingresso)}" />
+					</h:form>
+			    </div>
+			</div>
+		</ui:repeat>
+		</div>
 	
-	<h:outputLabel style="font-weight: bold" value="Data da Compra: "/>
-	<h:outputLabel value="#{reservaIngressosBean.reserva.dataEmissao}">
-		<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
-	</h:outputLabel>
-	<br/>
-	
-	<h:outputLabel style="font-weight: bold" value="Cinema: "/>
-	<h:outputLabel value="#{reservaIngressosBean.reserva.sessao.cinema.nome}" />
-	<br/>
-	
-	<h:outputLabel style="font-weight: bold" value="Endereço: "/>
-	<h:outputLabel value="#{reservaIngressosBean.reserva.sessao.cinema.enderecoConcatenado}" />
-	<br/>
-	
-	<h:outputLabel style="font-weight: bold" value="Data de Exibição: "/>
-	<h:outputLabel value="#{reservaIngressosBean.reserva.sessao.dataExibicao}">
-		<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
-	</h:outputLabel>
-	<br/>
-	
-	<h:outputLabel style="font-weight: bold" value="Hora de Exibição: "/>
-	<h:outputLabel value="#{reservaIngressosBean.reserva.sessao.horaExibicao}">
-		<f:convertDateTime type="time" pattern="HH:mm" locale="pt-BR" timeZone="America/Brasilia"/>
-	</h:outputLabel>
-	<br/>
-	
-	<br/>
-	<h:outputLabel value="#{reservaIngressosBean.reserva.quantIngressos} ingresso(s) comprado(s)" />
-	<br/>
-	
-	<h:outputLabel style="font-weight: bold" value="Valor Total: "/>
-	<h:outputLabel value="#{reservaIngressosBean.reserva.valorTotal}" />
-	<br/>
-	
-	<h2>Ingressos</h2>
-	
-	<h:dataTable id="ingressosTable" value="#{reservaIngressosBean.reserva.ingressos}" var="ingresso">
-		<h:column>
-			<h:outputLabel style="font-weight:bold" value="Nome completo: " />
-			<h:outputLabel value="#{ingresso.nomeCompleto}" />
-			<br/>
-			
-			<h:outputLabel style="font-weight:bold" value="Data de Nascimento: " />
-			<h:outputLabel value="#{ingresso.dataNascimento}" >
-				<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
-			</h:outputLabel>
-		</h:column>
-		<h:column>
-			<h:outputLabel style="font-weight:bold" value="Tipo: " />
-			<h:outputLabel value="#{ingresso.tipo}" />
-			<br/>
-			
-			<h:outputLabel style="font-weight:bold" value="Valor: " />
-			<h:outputLabel value="#{ingresso.valor}" />
-		</h:column>
-		<h:column>
-			<h:form id="form">
-				<h:commandButton id="botaoBaixar" value="Baixar voucher" action="#{reservaIngressosBean.baixarVoucherDoIngresso(ingresso)}" />
-			</h:form>
-		</h:column>
-	</h:dataTable>
+	</div>
 
 </ui:define>
 </ui:composition>

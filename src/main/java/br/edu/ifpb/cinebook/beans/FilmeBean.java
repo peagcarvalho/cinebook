@@ -44,8 +44,9 @@ public class FilmeBean implements Serializable {
 	
 	@PostConstruct
 	public void init() {
-		filmes = listarTodosFilmes();
+		filmes = new ArrayList<Filme>();
 		generos = new ArrayList<String>();
+		buscaFilme = "";
 	}
 	
 	public String cadastrar() {
@@ -70,6 +71,7 @@ public class FilmeBean implements Serializable {
 	
 	public String excluir(Filme filme) {
 		servico.excluir(filme.getId());
+		filmes.remove(filme);
 		
 		return "admin/listaDeFilmes.xhtml?faces-redirect=true";
 	}
@@ -131,12 +133,12 @@ public class FilmeBean implements Serializable {
 		filmes = servico.listarFilmesEmCartaz();
 	}
 	
-	public List<Filme> listarFilmesPorTexto() {
-		return servico.buscarPorPalavra(buscaFilme);
+	public void buscarFilmePorTexto() {
+		filmes = servico.buscarPorPalavra(getBuscaFilme());
 	}
 	
-	public List<Filme> listarTodosFilmes() {
-		return servico.listarTodosFilmes();
+	public void listarTodosFilmes() {
+		filmes = servico.listarTodosFilmes();
 	}
 	
 	public Filme buscar() {
@@ -197,6 +199,14 @@ public class FilmeBean implements Serializable {
 
 	public void setGeneroConcatenado(String generoConcatenado) {
 		this.generoConcatenado = generoConcatenado;
+	}
+
+	public String getBuscaFilme() {
+		return buscaFilme;
+	}
+
+	public void setBuscaFilme(String buscaFilme) {
+		this.buscaFilme = buscaFilme;
 	}
 
 }
