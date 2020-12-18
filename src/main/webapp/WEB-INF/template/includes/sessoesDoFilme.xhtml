@@ -33,13 +33,14 @@
 						<f:convertDateTime type="time" pattern="HH:mm" locale="pt-BR" timeZone="America/Brasilia"/>
 					</h:outputLabel>
 					<br/>
-				</div>
-				
-			    <div class="col-md-4 themed-grid-col mt-5 pt-3">
-					<h:link class="btn btn-lg btn-danger btn-block" style="width:40%" value="Comprar" outcome="cliente/reservarIngressos">
+					
+					<h:outputLabel value="#{sessao.tipoSessao}"/>
+					<br/>
+					
+					<h:link class="btn btn-lg btn-danger btn-block" style="width:40%; margin-left:30%; margin-right:30%" value="Comprar" outcome="cliente/reservarIngressos">
 						<f:param name="id" value="#{sessao.id}"></f:param>		
 					</h:link>
-			    </div>
+				</div>
 			</div>
 		</ui:repeat>
 		</div>
