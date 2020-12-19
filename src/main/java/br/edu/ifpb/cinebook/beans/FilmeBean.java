@@ -36,6 +36,8 @@ public class FilmeBean implements Serializable {
 	@EJB
 	private SessaoServico sessaoServico;
 	@Inject
+	private PesquisasBean pesquisaBean;
+	@Inject
 	private FacesContext facesContext;
 	
 	public FilmeBean() {
@@ -134,7 +136,11 @@ public class FilmeBean implements Serializable {
 	}
 	
 	public void buscarFilmePorTexto() {
-		filmes = servico.buscarPorPalavra(getBuscaFilme());
+		buscaFilme = pesquisaBean.getBuscaFilme();
+		
+		filmes = servico.buscarPorPalavra(buscaFilme);
+		
+		pesquisaBean.setBuscaFilme("");
 	}
 	
 	public void listarTodosFilmes() {
@@ -207,6 +213,14 @@ public class FilmeBean implements Serializable {
 
 	public void setBuscaFilme(String buscaFilme) {
 		this.buscaFilme = buscaFilme;
+	}
+
+	public PesquisasBean getPesquisaBean() {
+		return pesquisaBean;
+	}
+
+	public void setPesquisaBean(PesquisasBean pesquisaBean) {
+		this.pesquisaBean = pesquisaBean;
 	}
 
 }

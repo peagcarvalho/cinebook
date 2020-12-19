@@ -10,7 +10,11 @@ public class PesquisasBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String buscaFilme;
+	private String buscaFilme = "";
+	
+	public PesquisasBean() {
+		
+	}
 
 	public String getBuscaFilme() {
 		return buscaFilme;

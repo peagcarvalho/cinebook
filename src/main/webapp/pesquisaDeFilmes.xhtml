@@ -10,7 +10,7 @@
 <ui:define name="conteudo">
 
 	<f:metadata>
-		<f:viewParam name="busca" value="#{filmeBean.buscaFilme}"></f:viewParam>
+		<f:viewParam name="busca" value="#{filmeBean.buscaFilme}" required="true"></f:viewParam>
 		<f:viewAction action="#{filmeBean.buscarFilmePorTexto()}"></f:viewAction>
 	</f:metadata>
 

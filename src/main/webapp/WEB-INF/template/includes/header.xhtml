@@ -61,11 +61,11 @@
 	      </li>
 	    </c:if>
 	    </ul>
-	    <h:form class="form-inline mt-2 mt-md-0">
-	    	<input id="inputBusca" class="form-control mr-sm-2" type="text" placeholder="Procure por filmes" aria-label="Search" value="#{pesquisasBean.buscaFilme}"/>
+	    <h:form id="formPesquisa" class="form-inline mt-2 mt-md-0">
+	    	<h:inputText id="inputBusca" class="form-control mr-sm-2" placeholder="Procure por filmes" value="#{pesquisasBean.buscaFilme}"/>
 	      
 	      	<h:link class="btn btn-outline-danger my-2 my-sm-0" type="submit" value="Procurar" outcome="pesquisaDeFilmes">
-	      		<f:param name="busca" value="vingadores"></f:param>
+	      		<f:param name="busca" value="#{pesquisasBean.buscaFilme}"></f:param>
 	      	</h:link>
 	    </h:form>
 	  </div>
