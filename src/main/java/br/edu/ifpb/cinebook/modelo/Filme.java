@@ -23,6 +23,7 @@ public class Filme {
 	private Integer id;
 	private String titulo;
 	private String capa;
+	@Column(length = 500)
 	private String sinopse;
 	private String classificacao;
 	@Temporal(TemporalType.DATE)

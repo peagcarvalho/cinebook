@@ -4,38 +4,45 @@
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:jsf="http://xmlns.jcp.org/jsf"
 				xmlns:c="http://java.sun.com/jsp/jstl/core">
-
-	<h3>Sessões:</h3>
-
-	<h:dataTable id="sessoes" value="#{filmeBean.sessoes}" var="sessao">
-		<h:column>
-			<h:outputLabel style="font-weight:bold; font-size:16px" value="#{sessao.cinema.nome}"/>
-			<br/>
-			
-			<h:outputLabel value="#{sessao.cinema.enderecoConcatenado}"/>
-			<br/>
-			
-			<h:outputLabel value="Sala: #{sessao.sala}"/>
-			<br/>
-			
-			<h:outputLabel value="Data de Exibição: " />
-			<h:outputLabel value="#{sessao.dataExibicao}" >
-				<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Brasilia"/>
-			</h:outputLabel>
-			<br/>
-			
-			<h:outputLabel value="Hora de Exibição: " />
-			<h:outputLabel value="#{sessao.horaExibicao}" >
-				<f:convertDateTime type="time" pattern="HH:mm" locale="pt-BR" timeZone="America/Brasilia"/>
-			</h:outputLabel>
-			<br/>
-			
-		</h:column>
-		<h:column>
-			<h:link value="Comprar" outcome="cliente/reservarIngressos">
-				<f:param name="id" value="#{sessao.id}"></f:param>		
-			</h:link>
-    	</h:column>
-	</h:dataTable>
-
+	
+	
+	<div class="mr-4">
+		<h3 class="mt-4 pb-3">Sessões:</h3>
+		
+		<ui:repeat var="sessao" value="#{filmeBean.sessoes}">
+			<div class="row mb-3">
+			    <div class="col-md-4 themed-grid-col">
+					<h5>#{sessao.cinema.nome}</h5>
+					
+					
+					<h:outputLabel value="#{sessao.cinema.enderecoConcatenado}"/>
+					<br/>
+					
+					<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Sala: " />
+					<h:outputLabel value="#{sessao.sala}"/>
+					<br/>
+					
+					<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Data de Exibição: " />
+					<h:outputLabel value="#{sessao.dataExibicao}" >
+						<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Brasilia"/>
+					</h:outputLabel>
+					<br/>
+					
+					<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Hora de Exibição: " />
+					<h:outputLabel value="#{sessao.horaExibicao}" >
+						<f:convertDateTime type="time" pattern="HH:mm" locale="pt-BR" timeZone="America/Brasilia"/>
+					</h:outputLabel>
+					<br/>
+					
+					<h:outputLabel value="#{sessao.tipoSessao}"/>
+					<br/>
+					
+					<h:link class="btn btn-lg btn-danger btn-block" style="width:40%; margin-left:30%; margin-right:30%" value="Comprar" outcome="cliente/reservarIngressos">
+						<f:param name="id" value="#{sessao.id}"></f:param>		
+					</h:link>
+				</div>
+			</div>
+		</ui:repeat>
+		</div>
+	
 </ui:composition>

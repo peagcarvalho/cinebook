@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/template/template.xhtml" 
+<ui:composition template="/WEB-INF/template/bootstrap_template.xhtml" 
 				xmlns="http://www.w3.org/1999/xhtml" 
 				xmlns:f="http://xmlns.jcp.org/jsf/core" 
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -15,36 +15,45 @@
 		<f:viewAction action="#{sessaoBean.recuperarCinemaId}"></f:viewAction>
 		<f:viewAction action="#{sessaoBean.recuperarSessoesDoCinema}"></f:viewAction>
 	</f:metadata>
-
-	<h:dataTable id="sessoes" value="#{sessaoBean.sessoes}" var="sessao">
-		<h:column>
-			<f:facet name="header">Informações:</f:facet>
-			
-			<h:outputLabel value="Filme: #{sessao.filme.titulo}"/>
-			<br/>
-			
-			<h:outputLabel value="Sala: #{sessao.sala}"/>
-			<br/>
-			
-			<h:outputLabel value="Data de Exibição: " />
-			<h:outputLabel value="#{sessao.dataExibicao}" >
-				<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
-			</h:outputLabel>
-			<br/>
-			
-			<h:outputLabel value="Hora de Exibição: " />
-			<h:outputLabel value="#{sessao.horaExibicao}" >
-				<f:convertDateTime type="time" pattern="HH:mm" locale="pt-BR" timeZone="America/Brasilia"/>
-			</h:outputLabel>
-			<br/>
-			
-		</h:column>
-		<h:column>
-			<h:link value="Editar" outcome="editarSessao">
-				<f:param name="id" value="#{sessao.id}"></f:param>
-			</h:link>
-		</h:column>
-	</h:dataTable>
+	
+	<div class="mt-3 mr-3 text-center">
+		<h1 class="pb-4">SESSÕES CADASTRADAS</h1>
+		
+		<div style="margin-left:15%; margin-right:15%">
+		<ui:repeat var="sessao" value="#{sessaoBean.sessoes}">
+			    <div class="d-inline-block pt-2 mb-3" style="width:70%; border: 1px solid #000000; background-color: #080A0C">
+			    	<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Filme:" />
+					<h:outputLabel value="#{sessao.filme.titulo}" />
+					<br/>
+					
+					<div class="row mb-0 ml-2 mr-2">
+						<div class="col-md-4 themed-grid-col">>
+							<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Sala:" />
+							<h:outputLabel value="#{sessao.sala}" />
+							<br/>
+						</div>
+						<div class="col-md-4 themed-grid-col">>
+							<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Data:" />
+							<h:outputLabel value="#{sessao.dataExibicao}">
+								<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
+							</h:outputLabel>
+							<br/>
+						</div>
+						<div class="col-md-4 themed-grid-col">>
+							<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Hora:" />
+							<h:outputLabel value="#{sessao.horaExibicao}">
+				 				<f:convertDateTime type="time" pattern="HH:mm" locale="pt-BR" timeZone="America/Brasilia"/>
+				 			</h:outputLabel>
+			 			</div>
+			 		</div>
+					
+					<h:link class="btn btn-lg btn-danger btn-block mt-2 mb-2" style="width:30%; margin-right:35%; margin-left:35%" value="Editar" outcome="editarSessao">
+						<f:param name="id" value="#{sessao.id}"></f:param>
+					</h:link>
+				</div>
+		</ui:repeat>
+		</div>
+	</div>
 
 </ui:define>
 </ui:composition>

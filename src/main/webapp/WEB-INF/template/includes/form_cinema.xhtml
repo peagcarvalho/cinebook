@@ -4,44 +4,61 @@
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:jsf="http://xmlns.jcp.org/jsf">
 
-	<h:panelGrid columns="3">
-		<h:outputLabel value="Nome:" />
-		<h:inputText id="nome" value="#{cinemaBean.cinema.nome}" required="true"/>
-		<h:message for="nome"/>
-		
-		<h:outputLabel value="Telefone:"/>
-		<h:inputText id="telefone" value="#{cinemaBean.cinema.telefoneContato}" required="true"/>
-		<h:message for="telefone"/>
-		<br/>
-		
-		<h:outputText value="Endereço:"/>
-		
-		<br/>
-		<h:outputLabel value="Logradouro:"/>
-		<h:inputText id="logradouro" value="#{cinemaBean.cinema.endereco.logradouro}" required="true">
-		</h:inputText>
-		<h:message for="logradouro"/>
-		
-		<h:outputLabel value="Número:"/>
-		<h:inputText id="numero" value="#{cinemaBean.cinema.endereco.numero}" required="true">
-		</h:inputText>
-		<h:message for="numero"/>
-		
-		<h:outputLabel value="Bairro:"/>
-		<h:inputText id="bairro" value="#{cinemaBean.cinema.endereco.bairro}" required="true">
-		</h:inputText>
-		<h:message for="bairro"/>
-		
-		<h:outputLabel value="Cidade:"/>
-		<h:inputText id="cidade" value="#{cinemaBean.cinema.endereco.cidade}" required="true">
-		</h:inputText>
-		<h:message for="cidade"/>
-		
-		<h:outputLabel value="Estado:"/>
-		<h:inputText id="estado" value="#{cinemaBean.cinema.endereco.estado}" required="true">
-		</h:inputText>
-		<h:message for="estado"/>
-		
-	</h:panelGrid>
-		
+	<div class="mt-3 mb-3" style="margin-left:35%; margin-right:10%">
+		<h:messages id="msg"/>
+		<div id="containerFormFilme" class="d-inline-block" style="width:55%">
+			
+			<div class="mb-3">
+			 	<label for="inputNome">Nome</label>
+				<h:inputText id="inputNome" class="form-control" placeholder="Nome" value="#{cinemaBean.cinema.nome}" required="true"/>
+				<h:message for="inputNome"/>
+			</div>
+			
+			<div class="mb-3">
+				<label for="inputTelefone">Telefone</label>
+				<h:inputText id="inputTelefone" class="form-control" placeholder="Telefone:" value="#{cinemaBean.cinema.telefoneContato}" required="true">
+				</h:inputText>
+				<h:message for="inputTelefone"/>
+			</div>
+			
+			<h4>Endereço:</h4>
+			
+			<div class="mb-3">
+			 	<label for="inputLogradouro">Logradouro</label>
+				<h:inputText id="inputLogradouro" class="form-control" placeholder="Logradouro" value="#{cinemaBean.cinema.endereco.logradouro}" required="true">
+				</h:inputText>
+				<h:message for="inputLogradouro"/>
+			</div>
+			
+			<div class="mb-3">
+			 	<label for="inputNumero">Número</label>
+				<h:inputText id="inputNumero" class="form-control" placeholder="Número" value="#{cinemaBean.cinema.endereco.numero}" required="true">
+				</h:inputText>
+				<h:message for="inputNumero"/>
+			</div>
+			
+			<div class="mb-3">
+			 	<label for="inputBairro">Bairro</label>
+				<h:inputText id="inputBairro" class="form-control" placeholder="Bairro" value="#{cinemaBean.cinema.endereco.bairro}" required="true">
+				</h:inputText>
+				<h:message for="inputBairro"/>
+			</div>
+			
+			<div class="mb-3">
+			 	<label for="inputCidade">Cidade</label>
+				<h:inputText id="inputCidade" class="form-control" placeholder="Cidade" value="#{cinemaBean.cinema.endereco.cidade}" required="true">
+				</h:inputText>
+				<h:message for="inputCidade"/>
+			</div>
+			
+			<div class="mb-3">
+			 	<label for="inputEstado">Estado</label>
+				<h:inputText id="inputEstado" class="form-control" placeholder="Estado" value="#{cinemaBean.cinema.endereco.estado}" required="true">
+				</h:inputText>
+				<h:message for="inputEstado"/>
+			</div>
+			
+		</div>
+	</div>
+	
 </ui:composition>

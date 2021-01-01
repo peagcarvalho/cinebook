@@ -1,4 +1,4 @@
-<ui:composition template="WEB-INF/template/template.xhtml" 
+<ui:composition template="/WEB-INF/template/forms_template.xhtml" 
 				xmlns="http://www.w3.org/1999/xhtml" 
 				xmlns:f="http://xmlns.jcp.org/jsf/core" 
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -7,18 +7,22 @@
 
 <ui:param name="title" value="Criar conta - Cinebook" />
 
-<ui:define name="titulo">CRIE SUA CONTA</ui:define>
-
 <ui:define name="conteudo">
 
 	<input type="hidden" name="papel" value="CLIENTE"/>
 		
-	<h:form id="form">
+	<h:form id="form" class="form-signin mt-5 pt-2">
+		<div class="text-center mb-2">
+		  <h:graphicImage class="mb-3" name="/images/icone-cinebook.png" width="72" height="72" alt="icone_cinebook"/>
+		  <h1 class="h3 mb-2 font-weight-normal">Cinebook</h1>
+		  <p>Comece criando sua conta Cinebook para comprar seus ingressos.</p>
+		</div>
 	
 		<ui:include src="/WEB-INF/template/includes/form_cliente.xhtml"/>
 	
-		<h:commandButton id="botaoCriarConta" action="#{usuarioBean.cadastrarCliente}" value="Criar Conta"/>
+		<h:commandButton id="botaoCriarConta" class="btn btn-lg btn-danger btn-block" type="submit" action="#{usuarioBean.cadastrarCliente}" value="Criar Conta"/>
 	
+		<p class="mt-3 mb-0 text-muted text-center">Cinebook Ⓒ, 2020.</p>
 	</h:form>
 
 </ui:define>

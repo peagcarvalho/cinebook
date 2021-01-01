@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/template/template.xhtml" 
+<ui:composition template="/WEB-INF/template/bootstrap_template.xhtml" 
 				xmlns="http://www.w3.org/1999/xhtml" 
 				xmlns:f="http://xmlns.jcp.org/jsf/core" 
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -6,8 +6,6 @@
 				xmlns:jsf="http://xmlns.jcp.org/jsf">
 
 <ui:param name="title" value="Editar filme - Cinebook" />
-
-<ui:define name="titulo">EDITAR FILME</ui:define>
 
 <ui:define name="conteudo">
 
@@ -20,9 +18,11 @@
 	
 	<h:form id="form">
 	
+		<h2 class="text-center mt-3">EDITAR FILME</h2>
+	
 		<ui:include src="/WEB-INF/template/includes/form_filme.xhtml"/>
 	
-		<h:commandButton action="#{filmeBean.editar}" value="Salvar">
+		<h:commandButton class="btn btn-lg btn-danger btn-block" style="width:30%; margin-left:35%; margin-right:35%" type="submit" action="#{filmeBean.editar}" value="Salvar alterações">
 		</h:commandButton>
 	
 	</h:form>

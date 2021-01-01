@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+.movie-card-bg-image {
+	background-size: cover;
+	width:240px; 
+	height:340px; 
+	background-position:center; 
+	border: 1px solid #080A0C; 
+	word-wrap: break-word; 
+}

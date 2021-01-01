@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 public class Sessao {
@@ -44,6 +45,9 @@ public class Sessao {
 	@ManyToOne
 	@JoinColumn(name = "filme_id")
 	private Filme filme;
+	
+	@Transient
+	private String tipoSessao;
 	
 	public Integer getId() {
 		return id;
@@ -139,6 +143,24 @@ public class Sessao {
 
 	public void setReservas(List<Reserva> reservas) {
 		this.reservas = reservas;
+	}
+
+	public String getTipoSessao() {
+		String tipo = "";
+		
+		if (legendado == true) {
+			tipo += "LEG ";
+		} else {
+			tipo += "DUB ";
+		}
+		
+		if (tresDimensoes == true) {
+			tipo += "3D ";
+		} else {
+			tipo += "2D ";
+		}
+		
+		return tipo;
 	}
 
 }

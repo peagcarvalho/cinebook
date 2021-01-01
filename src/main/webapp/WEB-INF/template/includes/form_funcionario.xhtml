@@ -5,56 +5,61 @@
 				xmlns:jsf="http://xmlns.jcp.org/jsf"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-	
-	<h:messages id="msg"/>
-	<h:panelGrid columns="3">
-		<h:outputLabel value="Nome:" />
-		<h:inputText id="nome" value="#{usuarioBean.usuario.nome}" required="true">
-			<f:validateLength minimum="6" maximum="255"/>
-		</h:inputText>
-		<h:message for="nome"/>
+	<div class="mt-3 mb-3" style="margin-left:35%; margin-right:10%">
+		<h:messages id="msg"/>
+		<div id="containerFormFunc" class="d-inline-block" style="width:55%">
+			<div class="mb-3">
+			 	<label for="inputNome">Nome</label>
+				<h:inputText id="inputNome" class="form-control" placeholder="Nome" value="#{usuarioBean.usuario.nome}" required="true">
+					<f:validateLength minimum="6" maximum="255"/>
+				</h:inputText>
+				<h:message for="inputNome"/>
+			</div>
+			
+			<div class="mb-3">
+				<label for="inputDataNasc">Data de Nascimento</label>
+				<h:inputText id="inputDataNasc" class="form-control" placeholder="Data de Nascimento" value="#{usuarioBean.usuario.dataNascimento}" required="true">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
+				</h:inputText>
+				<h:message for="inputDataNasc"/>
+			</div>
+			
+			<div class="mb-3">
+			 	<label for="inputEmail">E-mail</label>
+				<h:inputText id="inputEmail" class="form-control" placeholder="E-mail" value="#{usuarioBean.usuario.email}" required="true">
+					<f:validator validatorId="emailValidator"></f:validator>
+				</h:inputText>
+				<h:message for="inputEmail"/>
+			</div>
+			
+			<div class="mb-3">
+			 	<label for="inputSenha">Senha</label>
+				<h:inputSecret id="inputSenha" class="form-control" placeholder="Senha" value="#{usuarioBean.usuario.senha}" required="true">
+					<f:validateLength minimum="6" maximum="20"/>
+				</h:inputSecret>
+				<h:message for="inputSenha"/>
+			</div>
+			
+			<label for="papelMenu">Papel do Funcionário</label>
 		
-		<h:outputLabel value="Data de Nascimento:"/>
-		<h:inputText id="data_nasc" value="#{usuarioBean.usuario.dataNascimento}" required="true">
-			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
-		</h:inputText>
-		<h:message for="data_nasc"/>
-		
-		<h:outputLabel value="E-mail:"/>
-		<h:inputText id="email" value="#{usuarioBean.usuario.email}" required="true">
-			<f:validator validatorId="emailValidator"></f:validator>
-		</h:inputText>
-		<h:message for="email"/>
-		
-		<h:outputLabel value="Senha:"/>
-		<h:inputSecret id="senha" value="#{usuarioBean.usuario.senha}" required="true">
-			<f:validateLength minimum="6" maximum="20"/>
-		</h:inputSecret>
-		<h:message for="senha"/>
-		
-	</h:panelGrid>
-	
-	<fieldset>
-		<legend>Papel do Funcionário</legend>
-		
-		<h:outputLabel value="Papel:" />
-		<h:selectOneMenu id="papelMenu" value="#{usuarioBean.papel}">
-			<f:selectItem itemLabel="Operador" itemValue="OPERADOR"/>
-			<f:selectItem itemLabel="Gerente" itemValue="GERENTE"/>
-		</h:selectOneMenu>
-	
-	</fieldset>
-	
-	<c:if test="#{request.userPrincipal.papel == 'ADMINISTRADOR'}">
-		<br/>
-		<h:outputLabel value="Selecione o cinema: " />
-		
-		<h:selectOneMenu value="#{usuarioBean.cinemaId}" id="cinemaMenu">
-			<f:selectItems value="#{usuarioBean.cinemas}" var="cinema"
-				itemLabel="#{cinema.nome}" itemValue="#{cinema.id}">
-			</f:selectItems>
-		</h:selectOneMenu>
-		<br/>
-	</c:if>
+			<h:selectOneMenu class="browser-default custom-select mb-3" id="papelMenu" value="#{usuarioBean.papel}">
+				<c:if test="#{request.userPrincipal.papel == 'GERENTE'}">
+					<f:selectItem itemLabel="Operador" itemValue="OPERADOR"/>
+				</c:if>
+				<f:selectItem itemLabel="Gerente" itemValue="GERENTE"/>
+			</h:selectOneMenu>
+			
+			<c:if test="#{request.userPrincipal.papel == 'ADMINISTRADOR'}">
+				<label for="cinemaMenu">Selecione o Cinema</label>
+				
+				<h:selectOneMenu class="browser-default custom-select mb-3" value="#{usuarioBean.cinemaId}" id="cinemaMenu">
+					<f:selectItems value="#{usuarioBean.cinemas}" var="cinema"
+						itemLabel="#{cinema.nome}" itemValue="#{cinema.id}">
+					</f:selectItems>
+				</h:selectOneMenu>
+			</c:if>
+			
+		</div>
+	</div>
 	
 </ui:composition>

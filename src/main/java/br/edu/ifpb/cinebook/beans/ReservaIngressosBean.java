@@ -81,6 +81,16 @@ public class ReservaIngressosBean implements Serializable {
 		
 		reservaServico.cadastrar(getReserva());
 		
+		int totalIngressosVendidos = sessao.getQuantIngressosVendidos() + reserva.getQuantIngressos();
+		
+		sessao.setQuantIngressosVendidos(totalIngressosVendidos);
+		
+		if (sessao.getQuantIngressosVendidos() >= sessao.getQuantMaxIngressos()) {
+			sessao.setEsgotada(true);
+		}
+		
+		sessaoServico.atualizar(sessao);
+		
 		setReserva(new Reserva());
 		ingressos = new ArrayList<Ingresso>();
 		

@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/template/template.xhtml" 
+<ui:composition template="/WEB-INF/template/bootstrap_template.xhtml" 
 				xmlns="http://www.w3.org/1999/xhtml" 
 				xmlns:f="http://xmlns.jcp.org/jsf/core" 
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -7,8 +7,6 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <ui:param name="title" value="Funcionários Cadastrados - Cinebook" />
-
-<ui:define name="titulo">FUNCIONÁRIOS</ui:define>
 
 <ui:define name="conteudo">
 
@@ -24,27 +22,50 @@
 		</c:if>
 	</f:metadata>
 
-	<h:dataTable id="funcionarios" value="#{usuarioBean.funcionarios}" var="funcionario">
-		<h:column>
-			<f:facet name="header">Nome</f:facet>
-			<h:outputText value="#{funcionario.nome}" />
-    	</h:column>
-    	<h:column>
-			<f:facet name="header">E-mail</f:facet>
-			<h:outputText value="#{funcionario.email}" />
-    	</h:column>
-    	<h:column>
-			<f:facet name="header">Data de Nascimento</f:facet>
-	 		<h:outputText value="#{funcionario.dataNascimento}">
-	 			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
-	 		</h:outputText>
-    	</h:column>
-    	<h:column>
-			<h:link value="Editar" outcome="editarFuncionario">
-				<f:param name="email" value="#{funcionario.email}"></f:param>
-			</h:link>
-		</h:column>
-	</h:dataTable>
+	<div class="mt-3 mr-3 text-center">
+		<c:if test="#{request.userPrincipal.papel == 'ADMINISTRADOR'}">
+			<h1 class="pb-4">GERENTES CADASTRADOS</h1>
+		</c:if>
+		
+		<c:if test="#{request.userPrincipal.papel == 'GERENTE'}">
+			<h1 class="pb-4">FUNCIONÁRIOS CADASTRADOS</h1>
+		</c:if>
+		
+		<div style="margin-left:2%; margin-right:2%">
+		<ui:repeat var="funcionario" value="#{usuarioBean.funcionarios}">
+			    <div class="d-inline-block pt-2 mb-2" style="width:80%; border: 1px solid #000000; background-color: #080A0C">
+			    	<c:if test="#{request.userPrincipal.papel == 'ADMINISTRADOR'}">
+						<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Cinema:" />
+						<h:outputLabel value="#{funcionario.cinema.nome}" />
+						<br/>
+					</c:if>
+					
+					<div class="row mb-2 ml-2 mr-2">
+						<div class="col-md-4 themed-grid-col">>
+							<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Nome:" />
+							<h:outputLabel value="#{funcionario.nome}" />
+							<br/>
+						</div>
+						<div class="col-md-4 themed-grid-col">>
+							<h:outputLabel style="font-weight: bold; margin-right: 8px" value="E-mail:" />
+							<h:outputLabel value="#{funcionario.email}" />
+							<br/>
+						</div>
+						<div class="col-md-4 themed-grid-col">>
+							<h:outputLabel style="font-weight: bold; margin-right: 8px" value="Data de Nascimento:" />
+							<h:outputLabel value="#{funcionario.dataNascimento}">
+				 				<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
+				 			</h:outputLabel>
+			 			</div>
+			 		</div>
+					
+					<h:link class="btn btn-lg btn-danger btn-block mt-2 mb-2" style="width:30%; margin-right:35%; margin-left:35%" value="Editar" outcome="editarFuncionario">
+						<f:param name="email" value="#{funcionario.email}"></f:param>
+					</h:link>
+				</div>
+		</ui:repeat>
+		</div>
+	</div>
 		
 </ui:define>
 </ui:composition>

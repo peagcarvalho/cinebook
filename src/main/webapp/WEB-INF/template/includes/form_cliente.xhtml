@@ -6,38 +6,45 @@
 
 	
 	<h:messages id="msg"/>
-	<h:panelGrid columns="3">
-		<h:outputLabel value="Nome:" />
-		<h:inputText id="nome" value="#{usuarioBean.usuario.nome}" required="true">
-			<f:validateLength minimum="6" maximum="255"/>
+	<div class="form-label-group">
+		<h:inputText id="nome" class="form-control" placeholder="Nome" value="#{usuarioBean.usuario.nome}" required="true">
+			<f:validateLength minimum="3" maximum="255"/>
 		</h:inputText>
+		<label for="inputNome">Nome</label>
 		<h:message for="nome"/>
+	</div>
 		
-		<h:outputLabel value="CPF:"/>
-		<h:inputText id="cpf" value="#{usuarioBean.usuario.cpf}" required="true">
+	<div class="form-label-group">
+		<h:inputText id="cpf" class="form-control" placeholder="CPF" value="#{usuarioBean.usuario.cpf}" required="true">
 			<f:validateLength minimum="14" maximum="14"/>
 			<f:validator validatorId="cpfValidator"></f:validator>
 		</h:inputText>
+		<label for="inputCpf">CPF</label>
 		<h:message for="cpf"/>
+	</div>
 		
-		<h:outputLabel value="Data de Nascimento:"/>
-		<h:inputText id="data_nasc" value="#{usuarioBean.usuario.dataNascimento}" required="true">
+	<div class="form-label-group">
+		<h:inputText id="data_nasc" class="form-control" placeholder="Data de Nascimento" value="#{usuarioBean.usuario.dataNascimento}" required="true">
 			<f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="pt-BR"/>
 		</h:inputText>
+		<label for="inputDataNasc">Data de Nascimento</label>
 		<h:message for="data_nasc"/>
+	</div>
 		
-		<h:outputLabel value="E-mail:"/>
-		<h:inputText id="email" value="#{usuarioBean.usuario.email}" required="true">
+	<div class="form-label-group">
+		<h:inputText id="email" class="form-control" placeholder="Email" value="#{usuarioBean.usuario.email}" required="true">
 			<f:validator validatorId="emailValidator"></f:validator>
 		</h:inputText>
+		<label for="inputEmail">Email</label>
 		<h:message for="email"/>
+	</div>
 		
-		<h:outputLabel value="Senha:"/>
-		<h:inputSecret id="senha" value="#{usuarioBean.usuario.senha}" required="true">
+	<div class="form-label-group">
+		<h:inputSecret id="senha" class="form-control" placeholder="Senha" value="#{usuarioBean.usuario.senha}" required="true">
 			<f:validateLength minimum="6" maximum="20"/>
 		</h:inputSecret>
+		<label for="inputSenha">Senha</label>
 		<h:message for="senha"/>
-		
-	</h:panelGrid>
-		
+	</div>
+	
 </ui:composition>
