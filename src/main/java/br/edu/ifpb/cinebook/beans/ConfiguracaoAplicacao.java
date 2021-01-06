@@ -1,6 +1,7 @@
 package br.edu.ifpb.cinebook.beans;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Default;
 import javax.faces.annotation.FacesConfig;
 import javax.security.enterprise.authentication.mechanism.http.CustomFormAuthenticationMechanismDefinition;
 import javax.security.enterprise.authentication.mechanism.http.LoginToContinue;
@@ -11,8 +12,9 @@ import javax.security.enterprise.authentication.mechanism.http.LoginToContinue;
 				errorPage = "/login.xhtml"
 				)
 		)
-@FacesConfig
+@FacesConfig(version = FacesConfig.Version.JSF_2_3)
 @ApplicationScoped
+@Default
 public class ConfiguracaoAplicacao {
 
 
