@@ -11,7 +11,7 @@
 			<div class="mb-3">
 			 	<label for="inputNome">Nome</label>
 				<h:inputText id="inputNome" class="form-control" placeholder="Nome" value="#{usuarioBean.usuario.nome}" required="true">
-					<f:validateLength minimum="6" maximum="255"/>
+					<f:validateLength minimum="3" maximum="255"/>
 				</h:inputText>
 				<h:message for="inputNome"/>
 			</div>

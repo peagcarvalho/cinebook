@@ -6,10 +6,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.TimeZone;
-
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
@@ -36,12 +35,12 @@ public class GeradorDeVoucher {
 		return conteudoArquivo;
 	}
 	
-	public File transformarBytesEmArquivo(byte[] conteudoArquivo) {
+	public File transformarBytesEmArquivo(byte[] conteudoArquivo, Ingresso ingresso) {
 		
 		Path path = Paths.get(System.getProperty("user.home"), "Downloads");
 		String caminho = path.toString();
 
-		String nomeArquivo = caminho + "\\voucher.pdf";
+		String nomeArquivo = caminho + "\\ingresso " + ingresso.getId() + ".pdf";
 		
 		File arquivo = new File(nomeArquivo);
 		
@@ -66,7 +65,7 @@ public class GeradorDeVoucher {
 		Path path = Paths.get(System.getProperty("user.home"), "Downloads");
 		String caminho = path.toString();
 
-		String nomeArquivo = caminho + "\\voucher.pdf";
+		String nomeArquivo = caminho + "\\ingresso " + ingresso.getId() + ".pdf";
 		
 		try {
 			PdfWriter.getInstance(document , new FileOutputStream(nomeArquivo));
@@ -79,7 +78,7 @@ public class GeradorDeVoucher {
 			Font fonteTitulo = new Font(bf, 14, Font.BOLD);
 			Font fontePadrao = new Font(bf, 12, Font.NORMAL);
 			
-			Paragraph titulo = new Paragraph("CINEBOOK - Voucher do Ingresso");
+			Paragraph titulo = new Paragraph("CINEBOOK - Ingresso");
 			titulo.setFont(fonteTitulo);
 			document.add(titulo);
 			
@@ -138,10 +137,13 @@ public class GeradorDeVoucher {
 			p7.setFont(fontePadrao);
 			document.add(p7);
 			
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
+			DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
+			df.setTimeZone(TimeZone.getTimeZone("UTC"));
 			
-			Paragraph p8 = new Paragraph(sdf.format(sessao.getDataExibicao()) + " às " + sdf2.format(sessao.getHoraExibicao()));
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+			sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+			
+			Paragraph p8 = new Paragraph(df.format(sessao.getDataExibicao()) + " às " + sdf.format(sessao.getHoraExibicao()));
 			p8.setFont(fontePadrao);
 			document.add(p8);
 			
@@ -155,7 +157,7 @@ public class GeradorDeVoucher {
 			p10.setFont(fontePadrao);
 			document.add(p10);
 			
-			Paragraph p11 = new Paragraph(sdf.format(ingresso.getDataNascimento()));
+			Paragraph p11 = new Paragraph(df.format(ingresso.getDataNascimento()));
 			p11.setFont(fontePadrao);
 			document.add(p11);
 			

@@ -1,6 +1,3 @@
-# cinema
-Este projeto consiste em desenvolver um software para uma empresa de uma rede de cinemas, possibilitando que os clientes possam 
-reservar ingressos para assistir os filmes no cinema mais próximo e facilitando a análise da empresa sobre o empreendimento através
-da geração de relatórios.
+# CINEBOOK
 
-O Software será desenvolvido utilizando Java EE.
+ Cinebook is a software developed for clients that intend to book tickets from a cinema or movie theater.
