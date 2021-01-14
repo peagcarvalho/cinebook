@@ -62,7 +62,14 @@ public class ReservaIngressosBean implements Serializable {
 		getReserva().setCliente(loginBean.getUsuarioLogado());
 		getReserva().setSessao(sessao);
 		
-		getReserva().setDataEmissao(new Date(System.currentTimeMillis()));
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		String dataStr = sdf.format(new Date(System.currentTimeMillis()));
+		
+		try {
+			getReserva().setDataEmissao(sdf.parse(dataStr));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		System.out.println("Data de Emissao adicionada " + getReserva().getDataEmissao().toString());
 		
 		getReserva().setQuantIngressos(getIngressos().size());
@@ -160,7 +167,7 @@ public class ReservaIngressosBean implements Serializable {
 			
 			reservaServico.atualizarIngresso(ingresso);
 		} else {
-			gerador.transformarBytesEmArquivo(ingresso.getVoucher(), ingresso);
+			gerador.transformarBytesEmArquivo(ingresso.getVoucher());
 		}
 	}
 

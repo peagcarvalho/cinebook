@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -18,7 +20,7 @@ import javax.persistence.TemporalType;
 public class Usuario {
 	 
 	@Id
-	@Column(length = 150, nullable = false)
+	@Column(length = 150)
 	private String email;
 	@Column(nullable = false)
 	private String senha;
